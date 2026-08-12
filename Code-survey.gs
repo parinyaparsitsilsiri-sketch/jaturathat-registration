@@ -18,7 +18,7 @@
  */
 
 // ===== แก้ตรงนี้: ID ของ Google Sheets (ดูจาก URL ชีต) =====
-const SPREADSHEET_ID = "1WCFIQ3L1wpmBmYFE8eUEf2TkJl_ye4ZRV5Wfxd42M_M";
+const SPREADSHEET_ID = "1FlAtKRhCR34Bpcd4dDLEUo5PqH5BuQOwlf_M-qJ3SdA";
 
 const SHEET_NAME = "ความพึงพอใจ";
 
