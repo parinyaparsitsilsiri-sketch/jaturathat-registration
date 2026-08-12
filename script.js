@@ -45,6 +45,7 @@ form.addEventListener("submit", async function (e) {
         fullname: document.getElementById("fullname").value.trim(),
         phone: document.getElementById("phone").value.trim(),
         email: document.getElementById("email").value.trim(),
+        line: document.getElementById("line").value.trim(),
         facebook: document.getElementById("facebook").value.trim(),
         message: document.getElementById("message").value.trim(),
         timestamp: new Date().toLocaleString("th-TH", { timeZone: "Asia/Bangkok" })

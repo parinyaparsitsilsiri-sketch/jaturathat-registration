@@ -35,10 +35,10 @@ function doPost(e) {
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
         "วันที่-เวลา", "หัวข้อที่สนใจ", "สถานะผู้สมัคร",
-        "ชื่อ-นามสกุล", "เบอร์โทร", "อีเมล", "Facebook", "ข้อความ"
+        "ชื่อ-นามสกุล", "เบอร์โทร", "อีเมล", "LINE ID", "Facebook", "ข้อความ"
       ]);
       // ตกแต่งหัวตาราง
-      sheet.getRange(1, 1, 1, 8).setFontWeight("bold")
+      sheet.getRange(1, 1, 1, 9).setFontWeight("bold")
         .setBackground("#1b5e20").setFontColor("#ffffff");
       sheet.setFrozenRows(1);
     }
@@ -51,12 +51,13 @@ function doPost(e) {
       data.fullname || "",
       data.phone || "",
       data.email || "",
+      data.line || "",
       data.facebook || "",
       data.message || ""
     ]);
 
     // 5. กว้างคอลัมน์ให้พอดี (เพื่อความสวยงาม)
-    sheet.autoResizeColumns(1, 8);
+    sheet.autoResizeColumns(1, 9);
 
     // 6. ตอบกลับสำเร็จ (รูปแบบ JSON — โปรแกรมอ่านได้)
     return ContentService
