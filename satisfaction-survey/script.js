@@ -154,12 +154,21 @@ async function submitForm(e) {
     };
 
     try {
-        await fetch(WEB_APP_URL, {
+        const res = await fetch(WEB_APP_URL, {
             method: "POST",
-            mode: "no-cors",
+            mode: "cors",
             headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify(data)
         });
+        const result = await res.json().catch(() => ({}));
+        if (result.result === "duplicate") {
+            showMessage("⚠️ อีเมลนี้เคยตอบแบบสอบถามแล้ว (1 คนตอบได้ครั้งเดียว) กรุณาใช้อีเมลอื่น", "error");
+            return;
+        }
+        if (result.result === "error") {
+            showMessage("❌ " + (result.message || "เกิดข้อผิดพลาดในระบบ กรุณาลองใหม่"), "error");
+            return;
+        }
         showMessage(
             "✅ ส่งแบบสอบถามสำเร็จ! ขอบคุณสำหรับความร่วมมือ 🙏\nประกาศนียบัตรจะถูกส่งไปยังอีเมลของท่าน",
             "success"
