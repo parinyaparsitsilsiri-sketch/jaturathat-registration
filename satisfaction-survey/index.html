@@ -31,21 +31,90 @@
                         <label for="title">คำนำหน้าชื่อ / ยศ <span class="req">*</span></label>
                         <select id="title" name="title" required>
                             <option value="">— เลือกคำนำหน้า —</option>
-                            <option value="นาย">นาย</option>
-                            <option value="นาง">นาง</option>
-                            <option value="นางสาว">นางสาว</option>
-                            <option value="พท.">พท.</option>
-                            <option value="พท.ป.">พท.ป.</option>
-                            <option value="พ.ต.">พ.ต.</option>
-                            <option value="พ.ต.ท.">พ.ต.ท.</option>
-                            <option value="พ.ต.อ.">พ.ต.อ.</option>
-                            <option value="ร.ต.">ร.ต.</option>
-                            <option value="ร.ต.ท.">ร.ต.ท.</option>
-                            <option value="ร.ต.อ.">ร.ต.อ.</option>
-                            <option value="ดร.">ดร.</option>
-                            <option value="ผศ.">ผศ.</option>
-                            <option value="รศ.">รศ.</option>
-                            <option value="ศ.">ศ.</option>
+                            <optgroup label="ทั่วไป">
+                                <option value="นาย">นาย</option>
+                                <option value="นาง">นาง</option>
+                                <option value="นางสาว">นางสาว</option>
+                                <option value="ดร.">ดร.</option>
+                                <option value="นพ.">นพ.</option>
+                                <option value="พญ.">พญ.</option>
+                                <option value="ผศ.">ผศ.</option>
+                                <option value="รศ.">รศ.</option>
+                                <option value="ศ.">ศ.</option>
+                            </optgroup>
+                            <optgroup label="ทหารบก">
+                                <option value="พล.อ.">พล.อ. (พลเอก)</option>
+                                <option value="พล.ท.">พล.ท. (พลโท)</option>
+                                <option value="พล.ต.">พล.ต. (พลตรี)</option>
+                                <option value="พ.อ.">พ.อ. (พันเอก)</option>
+                                <option value="พ.ท.">พ.ท. (พันโท)</option>
+                                <option value="พ.ต.">พ.ต. (พันตรี)</option>
+                                <option value="ร.อ.">ร.อ. (ร้อยเอก)</option>
+                                <option value="ร.ท.">ร.ท. (ร้อยโท)</option>
+                                <option value="ร.ต.">ร.ต. (ร้อยตรี)</option>
+                                <option value="จ.ส.อ.">จ.ส.อ. (จ่าสิบเอก)</option>
+                                <option value="จ.ส.ท.">จ.ส.ท. (จ่าสิบโท)</option>
+                                <option value="จ.ส.ต.">จ.ส.ต. (จ่าสิบตรี)</option>
+                                <option value="ส.อ.">ส.อ. (สิบเอก)</option>
+                                <option value="ส.ท.">ส.ท. (สิบโท)</option>
+                                <option value="ส.ต.">ส.ต. (สิบตรี)</option>
+                            </optgroup>
+                            <optgroup label="ทหารเรือ">
+                                <option value="พล.ร.อ.">พล.ร.อ. (พลเรือเอก)</option>
+                                <option value="พล.ร.ท.">พล.ร.ท. (พลเรือโท)</option>
+                                <option value="พล.ร.ต.">พล.ร.ต. (พลเรือตรี)</option>
+                                <option value="น.อ.">น.อ. (นาวาเอก)</option>
+                                <option value="น.ท.">น.ท. (นาวาโท)</option>
+                                <option value="น.ต.">น.ต. (นาวาตรี)</option>
+                                <option value="ร.อ. (เรือ)">ร.อ. (เรือเอก)</option>
+                                <option value="ร.ท. (เรือ)">ร.ท. (เรือโท)</option>
+                                <option value="ร.ต. (เรือ)">ร.ต. (เรือตรี)</option>
+                                <option value="พ.จ.อ.">พ.จ.อ. (พันจ่าเอก)</option>
+                                <option value="พ.จ.ท.">พ.จ.ท. (พันจ่าโท)</option>
+                                <option value="พ.จ.ต.">พ.จ.ต. (พันจ่าตรี)</option>
+                                <option value="จ่าเอก">จ่าเอก</option>
+                                <option value="จ่าโท">จ่าโท</option>
+                                <option value="จ่าตรี">จ่าตรี</option>
+                            </optgroup>
+                            <optgroup label="ทหารอากาศ">
+                                <option value="พล.อ.อ.">พล.อ.อ. (พลอากาศเอก)</option>
+                                <option value="พล.อ.ท.">พล.อ.ท. (พลอากาศโท)</option>
+                                <option value="พล.อ.ต.">พล.อ.ต. (พลอากาศตรี)</option>
+                                <option value="น.อ. (อากาศ)">น.อ. (นาวาอากาศเอก)</option>
+                                <option value="น.ท. (อากาศ)">น.ท. (นาวาอากาศโท)</option>
+                                <option value="น.ต. (อากาศ)">น.ต. (นาวาอากาศตรี)</option>
+                                <option value="ร.อ. (อากาศ)">ร.อ. (เรืออากาศเอก)</option>
+                                <option value="ร.ท. (อากาศ)">ร.ท. (เรืออากาศโท)</option>
+                                <option value="ร.ต. (อากาศ)">ร.ต. (เรืออากาศตรี)</option>
+                                <option value="พ.อ.อ. (จ่า)">พ.อ.อ. (พันจ่าอากาศเอก)</option>
+                                <option value="พ.อ.ท. (จ่า)">พ.อ.ท. (พันจ่าอากาศโท)</option>
+                                <option value="พ.อ.ต. (จ่า)">พ.อ.ต. (พันจ่าอากาศตรี)</option>
+                                <option value="จ.อ.">จ.อ. (จ่าอากาศเอก)</option>
+                                <option value="จ.ท.">จ.ท. (จ่าอากาศโท)</option>
+                                <option value="จ.ต.">จ.ต. (จ่าอากาศตรี)</option>
+                            </optgroup>
+                            <optgroup label="ตำรวจ">
+                                <option value="พล.ต.อ.">พล.ต.อ. (พลตำรวจเอก)</option>
+                                <option value="พล.ต.ท.">พล.ต.ท. (พลตำรวจโท)</option>
+                                <option value="พล.ต.ต.">พล.ต.ต. (พลตำรวจตรี)</option>
+                                <option value="พ.ต.อ. (ตำรวจ)">พ.ต.อ. (พันตำรวจเอก)</option>
+                                <option value="พ.ต.ท. (ตำรวจ)">พ.ต.ท. (พันตำรวจโท)</option>
+                                <option value="พ.ต.ต. (ตำรวจ)">พ.ต.ต. (พันตำรวจตรี)</option>
+                                <option value="ร.ต.อ. (ตำรวจ)">ร.ต.อ. (ร้อยตำรวจเอก)</option>
+                                <option value="ร.ต.ท. (ตำรวจ)">ร.ต.ท. (ร้อยตำรวจโท)</option>
+                                <option value="ร.ต.ต. (ตำรวจ)">ร.ต.ต. (ร้อยตำรวจตรี)</option>
+                                <option value="ด.ต.">ด.ต. (ดาบตำรวจ)</option>
+                                <option value="จ.ส.ต. (ตำรวจ)">จ.ส.ต. (จ่าสิบตำรวจ)</option>
+                                <option value="ส.ต.อ. (ตำรวจ)">ส.ต.อ. (สิบตำรวจเอก)</option>
+                                <option value="ส.ต.ท. (ตำรวจ)">ส.ต.ท. (สิบตำรวจโท)</option>
+                                <option value="ส.ต.ต. (ตำรวจ)">ส.ต.ต. (สิบตำรวจตรี)</option>
+                            </optgroup>
+                            <optgroup label="ศาสนา/อื่นๆ">
+                                <option value="พระครู">พระครู</option>
+                                <option value="พระมหา">พระมหา</option>
+                                <option value="อาจารย์">อาจารย์</option>
+                                <option value="อื่นๆ">อื่นๆ (ระบุในช่องชื่อ)</option>
+                            </optgroup>
                         </select>
                     </div>
                 </div>

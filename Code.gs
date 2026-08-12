@@ -63,7 +63,8 @@ function doPost(e) {
       const sheet = getSheet(SHEET_SURVEY, [
         "วันที่-เวลา", "คำนำหน้า/ยศ", "ชื่อ", "สกุล", "อีเมล",
         "Q1 เนื้อหา", "Q2 วิทยากร", "Q3 เอกสาร/สื่อ", "Q4 สถานที่",
-        "Q5 ระยะเวลา/การจัดการ", "Q6 การนำไปใช้", "Q7 โดยรวม",
+        "Q5 ระยะเวลา/การจัดการ", "Q6 อาหาร/เครื่องดื่ม", "Q7 ผู้ช่วยวิทยากร/ทีมงาน",
+        "Q8 การนำไปใช้", "Q9 โดยรวม",
         "ข้อเสนอแนะ"
       ]);
       sheet.appendRow([
@@ -79,9 +80,11 @@ function doPost(e) {
         data.q5 || "",
         data.q6 || "",
         data.q7 || "",
+        data.q8 || "",
+        data.q9 || "",
         data.suggestions || ""
       ]);
-      sheet.autoResizeColumns(1, 13);
+      sheet.autoResizeColumns(1, 15);
     } else {
       // ===== ฟอร์มลงทะเบียน (ค่าเริ่มต้น) =====
       const sheet = getSheet(SHEET_REGISTER, [
