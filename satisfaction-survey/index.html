@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบสอบถามความพึงพอใจการเรียนย่ำข่าง 25-26 กรกฎาคม 2569</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ส่วนหัว -->
+        <header class="hero">
+            <img src="../assets/logo.jpg" alt="โลโก้อาศรมศรีมงคล" class="logo">
+            <h1>แบบสอบถามความพึงพอใจ</h1>
+            <p class="subtitle">การเรียนย่ำข่าง รุ่นที่ 1</p>
+            <div class="date-badge">
+                <span class="date-icon">📅</span>
+                <span>วันที่ 25-26 กรกฎาคม 2569</span>
+            </div>
+            <p class="note">กรุณากรอกข้อมูลให้ครบถ้วน — ข้อมูลของท่านจะใช้ในการออกประกาศนียบัตรอัตโนมัติ (ส่งทางออนไลน์)</p>
+        </header>
+
+        <!-- ฟอร์ม -->
+        <form id="surveyForm" class="survey-form" novalidate>
+            <!-- ข้อมูลส่วนตัว -->
+            <section class="form-section">
+                <h2>👤 ข้อมูลผู้ตอบแบบสอบถาม</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title">คำนำหน้าชื่อ / ยศ <span class="req">*</span></label>
+                        <select id="title" name="title" required>
+                            <option value="">— เลือกคำนำหน้า —</option>
+                            <option value="นาย">นาย</option>
+                            <option value="นาง">นาง</option>
+                            <option value="นางสาว">นางสาว</option>
+                            <option value="พท.">พท.</option>
+                            <option value="พท.ป.">พท.ป.</option>
+                            <option value="พ.ต.">พ.ต.</option>
+                            <option value="พ.ต.ท.">พ.ต.ท.</option>
+                            <option value="พ.ต.อ.">พ.ต.อ.</option>
+                            <option value="ร.ต.">ร.ต.</option>
+                            <option value="ร.ต.ท.">ร.ต.ท.</option>
+                            <option value="ร.ต.อ.">ร.ต.อ.</option>
+                            <option value="ดร.">ดร.</option>
+                            <option value="ผศ.">ผศ.</option>
+                            <option value="รศ.">รศ.</option>
+                            <option value="ศ.">ศ.</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstname">ชื่อ <span class="req">*</span></label>
+                        <input type="text" id="firstname" name="firstname" placeholder="ชื่อจริง" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">สกุล <span class="req">*</span></label>
+                        <input type="text" id="lastname" name="lastname" placeholder="นามสกุล" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">อีเมล (สำหรับส่งประกาศนียบัตร) <span class="req">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                </div>
+            </section>
+
+            <!-- แบบสำรวจ -->
+            <section class="form-section">
+                <h2>📋 แบบสำรวจความพึงพอใจ</h2>
+                <p class="hint">กรุณาให้คะแนนความพึงพอใจในแต่ละหัวข้อ (1 = น้อยที่สุด, 5 = มากที่สุด)</p>
+
+                <div class="survey-questions" id="surveyQuestions">
+                    <!-- คำถามจะถูกสร้างโดย JavaScript -->
+                </div>
+
+                <div class="form-group">
+                    <label for="suggestions">ข้อเสนอแนะ / ความคิดเห็นเพิ่มเติม</label>
+                    <textarea id="suggestions" name="suggestions" rows="4" placeholder="ข้อเสนอแนะเพื่อการพัฒนาครั้งต่อไป..."></textarea>
+                </div>
+            </section>
+
+            <button type="submit" id="submitBtn" class="submit-btn">📤 ส่งแบบสอบถาม</button>
+            <p id="formMessage" class="form-message"></p>
+        </form>
+
+        <!-- ข้อมูลติดต่อ -->
+        <footer class="contact-info">
+            <p>📍 <strong>สถานที่อบรม:</strong> ศูนย์การเรียนรู้อาศรมศรีมงคล สาขาลาดบัวหลวง<br>
+            ต.คลองพระยาบันลือ อ.ลาดบัวหลวง จ.พระนครศรีอยุธยา 13230</p>
+            <p class="copyright">© อ.พท.ศิริมงคล — อาศรมศรีมงคล</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

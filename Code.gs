@@ -1,6 +1,6 @@
 /**
  * Code.gs — สคริปต์สำหรับ Google Sheets
- * รับข้อมูลจากแบบฟอร์มลงทะเบียน → เขียนลงชีตอัตโนมัติ
+ * รับข้อมูลจากฟอร์มลงทะเบียน + แบบสอบถามความพึงพอใจ → เขียนลงชีตอัตโนมัติ
  *
  * วิธีติดตั้ง:
  * 1. เปิด Google Sheets ใหม่ → ส่วนขยาย (Extensions) > Apps Script
@@ -13,14 +13,13 @@
  * 4. เอา URL นั้นไปใส่ใน script.js (ตัวแปร WEB_APP_URL)
  */
 
-// ชื่อชีตที่ต้องการให้ข้อมูลเข้า (ตั้งชื่อชีตให้ตรง)
-const SHEET_NAME = "ลงทะเบียน";
+// ชื่อชีตปลายทาง (สร้างให้อัตโนมัติถ้ายังไม่มี)
+const SHEET_REGISTER = "ลงทะเบียน";
+const SHEET_SURVEY = "ความพึงพอใจ";
 
 /**
- * doPost — รับข้อมูลจากฟอร์ม (JSON) แล้วบันทึกลง Google Sheets
+ * แปลงเวลาเป็น พ.ศ. ไทย (เช่น 12 สิงหาคม 2569 11:25 น.)
  */
-
-// แปลงเวลาเป็น พ.ศ. ไทย (เช่น 12 สิงหาคม 2569 11:25 น.)
 function formatThaiDate(d) {
   const months = [
     "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
@@ -30,53 +29,84 @@ function formatThaiDate(d) {
   return `${d.getDate()} ${months[d.getMonth()]} ${thaiYear} ${d.getHours()}:${String(d.getMinutes()).padStart(2, "0")} น.`;
 }
 
+/**
+ * หาชีตปลายทาง + เขียนหัวตารางถ้ายังไม่มี
+ */
+function getSheet(name, headers) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(name);
+  if (!sheet) {
+    sheet = ss.insertSheet(name);
+  }
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(headers);
+    sheet.getRange(1, 1, 1, headers.length)
+      .setFontWeight("bold")
+      .setBackground("#1b5e20")
+      .setFontColor("#ffffff");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+/**
+ * doPost — รับข้อมูลจากฟอร์ม (JSON) แล้วบันทึกลง Google Sheets
+ * รองรับ 2 ฟอร์ม: formType = "register" (ลงทะเบียน) / "survey" (ความพึงพอใจ)
+ */
 function doPost(e) {
   try {
-    // 1. อ่านข้อมูล JSON ที่ส่งมาจากฟอร์ม
     const data = JSON.parse(e.postData.contents);
-
-    // 2. หาชีตปลายทาง (สร้างให้ถ้ายังไม่มี)
     const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-    }
 
-    // 3. ถ้าเป็นแถวแรก (เพิ่งสร้างชีต) ให้เขียนหัวตาราง
-    if (sheet.getLastRow() === 0) {
+    if (data.formType === "survey") {
+      // ===== แบบสอบถามความพึงพอใจ =====
+      const sheet = getSheet(SHEET_SURVEY, [
+        "วันที่-เวลา", "คำนำหน้า/ยศ", "ชื่อ", "สกุล", "อีเมล",
+        "Q1 เนื้อหา", "Q2 วิทยากร", "Q3 เอกสาร/สื่อ", "Q4 สถานที่",
+        "Q5 ระยะเวลา/การจัดการ", "Q6 การนำไปใช้", "Q7 โดยรวม",
+        "ข้อเสนอแนะ"
+      ]);
       sheet.appendRow([
+        formatThaiDate(new Date()),
+        data.title || "",
+        data.firstname || "",
+        data.lastname || "",
+        data.email || "",
+        data.q1 || "",
+        data.q2 || "",
+        data.q3 || "",
+        data.q4 || "",
+        data.q5 || "",
+        data.q6 || "",
+        data.q7 || "",
+        data.suggestions || ""
+      ]);
+      sheet.autoResizeColumns(1, 13);
+    } else {
+      // ===== ฟอร์มลงทะเบียน (ค่าเริ่มต้น) =====
+      const sheet = getSheet(SHEET_REGISTER, [
         "วันที่-เวลา", "หัวข้อที่สนใจ", "สถานะผู้สมัคร",
         "ชื่อ-นามสกุล", "เบอร์โทร", "อีเมล", "LINE ID", "Facebook", "ข้อความ"
       ]);
-      // ตกแต่งหัวตาราง
-      sheet.getRange(1, 1, 1, 9).setFontWeight("bold")
-        .setBackground("#1b5e20").setFontColor("#ffffff");
-      sheet.setFrozenRows(1);
+      sheet.appendRow([
+        formatThaiDate(new Date()),
+        data.topic || "",
+        data.status || "",
+        data.fullname || "",
+        data.phone || "",
+        data.email || "",
+        data.line || "",
+        data.facebook || "",
+        data.message || ""
+      ]);
+      sheet.autoResizeColumns(1, 9);
     }
 
-    // 4. เขียนข้อมูลผู้ลงทะเบียน (เรียงตามหัวตาราง) — วันที่ใช้เวลาเซิร์ฟเวอร์เป็น พ.ศ. ไทย
-    sheet.appendRow([
-      formatThaiDate(new Date()),
-      data.topic || "",
-      data.status || "",
-      data.fullname || "",
-      data.phone || "",
-      data.email || "",
-      data.line || "",
-      data.facebook || "",
-      data.message || ""
-    ]);
-
-    // 5. กว้างคอลัมน์ให้พอดี (เพื่อความสวยงาม)
-    sheet.autoResizeColumns(1, 9);
-
-    // 6. ตอบกลับสำเร็จ (รูปแบบ JSON — โปรแกรมอ่านได้)
     return ContentService
       .createTextOutput(JSON.stringify({ result: "success" }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (err) {
-    // ตอบกลับเมื่อมีข้อผิดพลาด
     return ContentService
       .createTextOutput(JSON.stringify({ result: "error", message: String(err) }))
       .setMimeType(ContentService.MimeType.JSON);
@@ -103,6 +133,6 @@ function onOpen() {
 }
 
 function refreshData() {
-  SpreadsheetApp.getActiveSheet().autoResizeColumns(1, 8);
+  SpreadsheetApp.getActiveSheet().autoResizeColumns(1, 10);
   SpreadsheetApp.getUi().alert("✅ อัปเดตข้อมูลเรียบร้อย");
 }

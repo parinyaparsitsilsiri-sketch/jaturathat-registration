@@ -1,0 +1,317 @@
+/* ===== แบบสอบถามความพึงพอใจ — อาศรมศรีมงคล ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Noto Sans Thai", "TH Sarabun New", "Segoe UI", Tahoma, sans-serif;
+    background: linear-gradient(160deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    color: #1b3a1f;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(27, 94, 32, 0.18);
+    overflow: hidden;
+}
+
+/* ===== ส่วนหัว ===== */
+.hero {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+}
+
+.logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    margin-bottom: 1rem;
+    object-fit: cover;
+}
+
+.hero h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.hero .subtitle {
+    font-size: 1.15rem;
+    opacity: 0.95;
+    margin-top: 0.2rem;
+    font-weight: 500;
+}
+
+.date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50px;
+    padding: 0.4rem 1.2rem;
+    margin-top: 0.9rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.date-icon {
+    font-size: 1.2rem;
+}
+
+.hero .note {
+    font-size: 0.88rem;
+    opacity: 0.85;
+    margin-top: 1rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== ฟอร์ม ===== */
+.survey-form {
+    padding: 1.8rem 2rem 2rem;
+}
+
+.form-section {
+    margin-bottom: 1.8rem;
+    padding: 1.3rem 1.4rem;
+    background: #f7fbf7;
+    border: 1px solid #dceddc;
+    border-radius: 14px;
+}
+
+.form-section h2 {
+    font-size: 1.15rem;
+    color: #1b5e20;
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #c8e6c9;
+}
+
+.hint {
+    font-size: 0.85rem;
+    color: #5d7a60;
+    margin-bottom: 1rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+    color: #2e4d32;
+}
+
+.req {
+    color: #c62828;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1.5px solid #b9d4bc;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    font-family: inherit;
+    background: #ffffff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* ===== คำถาม Rating ===== */
+.survey-question {
+    background: #ffffff;
+    border: 1px solid #dceddc;
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.survey-question .q-text {
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: #1f3d23;
+    margin-bottom: 0.6rem;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.rating-options {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.rating-options label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.rating-options input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rating-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1.5px solid #c8d9ca;
+    background: #f5faf5;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #4c6b50;
+    transition: all 0.15s;
+}
+
+.rating-options label:hover .rating-num {
+    border-color: #2e7d32;
+    background: #e8f5e9;
+}
+
+.rating-options input[type="radio"]:checked + .rating-num {
+    background: #2e7d32;
+    color: #ffffff;
+    border-color: #2e7d32;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.35);
+}
+
+.rating-label {
+    font-size: 0.7rem;
+    color: #7a907d;
+    margin-top: 0.25rem;
+}
+
+.rating-scale {
+    font-size: 0.75rem;
+    color: #7a907d;
+    white-space: nowrap;
+}
+
+/* ===== ปุ่มส่ง ===== */
+.submit-btn {
+    width: 100%;
+    padding: 0.95rem;
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(27, 94, 32, 0.35);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-message {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    display: none;
+    text-align: center;
+}
+
+.form-message.success {
+    display: block;
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #a5d6a7;
+}
+
+.form-message.error {
+    display: block;
+    background: #fdecea;
+    color: #b71c1c;
+    border: 1px solid #ef9a9a;
+}
+
+/* ===== ข้อมูลติดต่อ ===== */
+.contact-info {
+    background: #f1f8f1;
+    border-top: 3px solid #2e7d32;
+    padding: 1.4rem 2rem;
+    text-align: center;
+    font-size: 0.92rem;
+    color: #3c5a40;
+}
+
+.contact-info strong {
+    color: #1b5e20;
+}
+
+.copyright {
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+    opacity: 0.75;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    .hero h1 { font-size: 1.45rem; }
+    .survey-form { padding: 1.2rem 1rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .rating-row { flex-direction: column; align-items: flex-start; }
+    .rating-scale { display: none; }
+    .rating-num { width: 34px; height: 34px; }
+}
