@@ -19,6 +19,17 @@ const SHEET_NAME = "ลงทะเบียน";
 /**
  * doPost — รับข้อมูลจากฟอร์ม (JSON) แล้วบันทึกลง Google Sheets
  */
+
+// แปลงเวลาเป็น พ.ศ. ไทย (เช่น 12 สิงหาคม 2569 11:25 น.)
+function formatThaiDate(d) {
+  const months = [
+    "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+    "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+  ];
+  const thaiYear = d.getFullYear() + 543; // ค.ศ. → พ.ศ.
+  return `${d.getDate()} ${months[d.getMonth()]} ${thaiYear} ${d.getHours()}:${String(d.getMinutes()).padStart(2, "0")} น.`;
+}
+
 function doPost(e) {
   try {
     // 1. อ่านข้อมูล JSON ที่ส่งมาจากฟอร์ม
@@ -43,9 +54,9 @@ function doPost(e) {
       sheet.setFrozenRows(1);
     }
 
-    // 4. เขียนข้อมูลผู้ลงทะเบียน (เรียงตามหัวตาราง)
+    // 4. เขียนข้อมูลผู้ลงทะเบียน (เรียงตามหัวตาราง) — วันที่ใช้เวลาเซิร์ฟเวอร์เป็น พ.ศ. ไทย
     sheet.appendRow([
-      data.timestamp || new Date().toLocaleString("th-TH"),
+      formatThaiDate(new Date()),
       data.topic || "",
       data.status || "",
       data.fullname || "",
