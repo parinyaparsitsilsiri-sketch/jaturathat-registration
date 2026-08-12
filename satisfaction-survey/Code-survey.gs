@@ -51,22 +51,6 @@ function doPost(e) {
         .setBackground("#1b5e20").setFontColor("#ffffff");
       sheet.setFrozenRows(1);
     }
-
-    // ===== กันการกรอกซ้ำ: ตรวจสอบอีเมลในชีตแล้ว (คอลัมน์ E = 5) =====
-    const newEmail = String(data.email || "").trim().toLowerCase();
-    const lastRow = sheet.getLastRow();
-    if (newEmail && lastRow > 1) {
-      const emails = sheet.getRange(2, 5, lastRow - 1, 1)
-        .getValues().flat().map(String).map(v => v.trim().toLowerCase());
-      if (emails.includes(newEmail)) {
-        return ContentService
-          .createTextOutput(JSON.stringify({
-            result: "duplicate",
-            message: "อีเมลนี้เคยตอบแบบสอบถามแล้ว"
-          }))
-          .setMimeType(ContentService.MimeType.JSON);
-      }
-    }
     sheet.appendRow([
       formatThaiDate(new Date()),
       data.title || "",
