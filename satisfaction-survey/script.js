@@ -69,6 +69,33 @@ function buildQuestions() {
     });
 }
 
+// แสดง/ซ่อนช่องกรอกเมื่อเลือก "อื่น ๆ"
+function setupOtherTitle() {
+    const select = document.getElementById("title");
+    const box = document.getElementById("otherTitleBox");
+    const input = document.getElementById("title_other");
+
+    const toggle = () => {
+        const isOther = select.value === "อื่นๆ";
+        box.style.display = isOther ? "block" : "none";
+        input.required = isOther; // บังคับกรอกเมื่อเลือกอื่น ๆ
+        if (!isOther) input.value = ""; // เคลียร์เมื่อไม่เลือก
+    };
+
+    select.addEventListener("change", toggle);
+    toggle(); // เรียกครั้งแรก (ซ่อนไว้)
+}
+
+// คืนค่าคำนำหน้า (รวมกรณีเลือก "อื่น ๆ" → "อื่น ๆ: [ที่กรอก]")
+function getSelectedTitle() {
+    const select = document.getElementById("title");
+    if (select.value === "อื่นๆ") {
+        const custom = document.getElementById("title_other").value.trim();
+        return custom ? `อื่น ๆ: ${custom}` : "";
+    }
+    return select.value;
+}
+
 // แสดงข้อความ
 function showMessage(text, type) {
     const msg = document.getElementById("formMessage");
@@ -117,7 +144,7 @@ async function submitForm(e) {
 
     const data = {
         formType: "survey",
-        title: document.getElementById("title").value,
+        title: getSelectedTitle(),
         firstname: document.getElementById("firstname").value.trim(),
         lastname: document.getElementById("lastname").value.trim(),
         email: document.getElementById("email").value.trim(),
@@ -153,5 +180,6 @@ async function submitForm(e) {
 // เริ่มต้น
 document.addEventListener("DOMContentLoaded", () => {
     buildQuestions();
+    setupOtherTitle();
     document.getElementById("surveyForm").addEventListener("submit", submitForm);
 });

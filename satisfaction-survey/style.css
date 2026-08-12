@@ -155,6 +155,23 @@ textarea {
     resize: vertical;
 }
 
+/* ===== กล่องกรอก "อื่น ๆ" (คำนำหน้า) ===== */
+.other-box {
+    margin-top: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    background: #fff8e1;
+    border: 1.5px dashed #f9a825;
+    border-radius: 10px;
+}
+
+.other-box label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.3rem;
+    color: #795548;
+}
+
 /* ===== คำถาม Rating ===== */
 .survey-question {
     background: #ffffff;
