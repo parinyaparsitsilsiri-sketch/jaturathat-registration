@@ -1,0 +1,429 @@
+/* ============================================
+   อาศรมศรีมงคล — ฟอร์มลงทะเบียนผู้สนใจเรียน
+   ธีม: ธรรมชาติ เขียวขจี สงบ ร่มรื่น
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Prompt', 'Sarabun', sans-serif;
+    background: #f0f7f0;
+    color: #2d3436;
+    line-height: 1.7;
+    min-height: 100vh;
+}
+
+/* ===== ส่วนหัว Hero ===== */
+.hero {
+    position: relative;
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 45%, #388e3c 100%);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.logo-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.85);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    object-fit: cover;
+    background: #fff;
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.hero-sub {
+    color: #e8f5e9;
+    font-size: 1.05rem;
+    margin-top: 0.3rem;
+}
+
+.hero-tags {
+    margin-top: 1.2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    padding: 0.35rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.35);
+}
+
+/* ===== เนื้อหาหลัก ===== */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3rem;
+}
+
+.form-section {
+    background: #fff;
+    border-radius: 18px;
+    padding: 2rem 1.8rem;
+    box-shadow: 0 10px 40px rgba(27, 94, 32, 0.12);
+    border-top: 5px solid #2e7d32;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+
+.section-header h2 {
+    color: #1b5e20;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.section-header p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+}
+
+/* ===== ฟอร์ม ===== */
+.form-group {
+    margin-bottom: 1.3rem;
+    border: none;
+    padding: 0;
+}
+
+.form-group legend {
+    font-weight: 600;
+    color: #2d3436;
+    margin-bottom: 0.5rem;
+    padding: 0;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: #2d3436;
+    margin-bottom: 0.35rem;
+    font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #d5e8d5;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #fafdfa;
+    color: #2d3436;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+    background: #fff;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.hint {
+    display: block;
+    color: #95a5a6;
+    font-size: 0.78rem;
+    margin-top: 0.25rem;
+}
+
+/* ===== ปุ่มเลือกหัวข้อ (radio-card) ===== */
+.radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.radio-card {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.radio-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.radio-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem 1rem;
+    border: 2px solid #d5e8d5;
+    border-radius: 14px;
+    background: #fafdfa;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.radio-icon {
+    font-size: 2rem;
+    margin-bottom: 0.4rem;
+}
+
+.radio-title {
+    font-weight: 600;
+    color: #2d3436;
+    font-size: 1rem;
+}
+
+.radio-desc {
+    font-size: 0.78rem;
+    color: #7f8c8d;
+    margin-top: 0.2rem;
+}
+
+.radio-card input:checked + .radio-card-body {
+    border-color: #2e7d32;
+    background: #eaf7ea;
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.2);
+    transform: translateY(-2px);
+}
+
+.radio-card input:checked + .radio-card-body .radio-title {
+    color: #1b5e20;
+}
+
+/* ===== ปุ่มส่ง ===== */
+.submit-btn {
+    width: 100%;
+    padding: 0.95rem;
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(27, 94, 32, 0.3);
+    margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(27, 94, 32, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ===== ข้อความสถานะ ===== */
+.form-message {
+    margin-top: 1rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.form-message.success {
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1.5px solid #81c784;
+}
+
+.form-message.error {
+    background: #fdecea;
+    color: #b71c1c;
+    border: 1.5px solid #ef9a9a;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ===== ข้อมูลติดต่อ ===== */
+.contact-info {
+    text-align: center;
+    margin-top: 2.2rem;
+    color: #5d6d7e;
+    font-size: 0.9rem;
+}
+
+.contact-info p {
+    margin: 0.2rem 0;
+}
+
+.contact-info strong {
+    color: #1b5e20;
+}
+
+.fb-link {
+    color: #1877f2;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(24, 119, 242, 0.3);
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.fb-link:hover {
+    color: #145dbf;
+    border-bottom-color: #145dbf;
+}
+
+.map-link {
+    color: #1b5e20;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(27, 94, 32, 0.3);
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.map-link:hover {
+    color: #0d3d10;
+    border-bottom-color: #0d3d10;
+}
+
+/* ===== กล่อง Facebook + QR code ===== */
+.qr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem auto 0;
+    max-width: 620px;
+}
+
+.fb-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: #fff;
+    border: 2px solid #d5e8d5;
+    border-radius: 14px;
+    text-align: left;
+}
+
+.qr-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 10px;
+    border: 2px solid #e8f0e8;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+}
+
+.fb-box-text p {
+    margin: 0.15rem 0;
+}
+
+.qr-hint {
+    color: #7f8c8d;
+    font-size: 0.82rem;
+    margin-top: 0.3rem !important;
+}
+
+@media (max-width: 480px) {
+    .qr-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fb-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.copyright {
+    margin-top: 1rem;
+    color: #aab7bd;
+    font-size: 0.8rem;
+}
+
+/* ===== Responsive: รองรับทุกขนาดจอ ===== */
+@media (max-width: 640px) {
+    .hero {
+        padding: 2rem 1rem 1.8rem;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo-img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .form-row,
+    .radio-group {
+        grid-template-columns: 1fr;
+    }
+
+    .form-section {
+        padding: 1.5rem 1.2rem;
+    }
+}

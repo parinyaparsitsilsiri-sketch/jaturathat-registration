@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลงทะเบียนผู้สนใจเรียน | อาศรมศรีมงคล</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ===== ส่วนหัว ===== -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <img src="assets/logo.jpg" alt="โลโก้อาศรมศรีมงคล" class="logo-img">
+            <h1>อาศรมศรีมงคล</h1>
+            <p class="hero-sub">แบบฟอร์มลงทะเบียนผู้สนใจเรียน</p>
+            <div class="hero-tags">
+                <span class="tag">🌿 จตุรธาตุ</span>
+                <span class="tag">🔥 ย่ำข่าง</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== ฟอร์มลงทะเบียน ===== -->
+    <main class="container">
+        <section class="form-section">
+            <div class="section-header">
+                <h2>📝 ลงทะเบียนผู้สนใจเรียน</h2>
+                <p>กรุณากรอกข้อมูลให้ครบถ้วน * = จำเป็นต้องกรอก</p>
+            </div>
+
+            <form id="registrationForm" novalidate>
+                <!-- หัวข้อที่สนใจ -->
+                <fieldset class="form-group">
+                    <legend>หัวข้อที่สนใจเรียน *</legend>
+                    <div class="radio-group">
+                        <label class="radio-card">
+                            <input type="radio" name="topic" value="จตุรธาตุ" required>
+                            <span class="radio-card-body">
+                                <span class="radio-icon">🌿</span>
+                                <span class="radio-title">จตุรธาตุ</span>
+                                <span class="radio-desc">เรียนรู้ธาตุทั้งสี่ (ดิน น้ำ ลม ไฟ)</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="topic" value="ย่ำข่าง">
+                            <span class="radio-card-body">
+                                <span class="radio-icon">🔥</span>
+                                <span class="radio-title">ย่ำข่าง</span>
+                                <span class="radio-desc">ศาสตร์การย่ำข่างตามตำราโบราณ</span>
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- สถานะผู้สมัคร -->
+                <div class="form-group">
+                    <label for="status">สถานะผู้สมัคร *</label>
+                    <select id="status" name="status" required>
+                        <option value="" disabled selected>-- กรุณาเลือกสถานะ --</option>
+                        <option value="บุคคลทั่วไป">🙂 บุคคลทั่วไป</option>
+                        <option value="แพทย์แผนไทย">🌿 แพทย์แผนไทย</option>
+                        <option value="แพทย์แผนไทยประยุกต์">🩺 แพทย์แผนไทยประยุกต์</option>
+                    </select>
+                </div>
+
+                <!-- ข้อมูลติดต่อ -->
+                <div class="form-group">
+                    <label for="fullname">ชื่อ-นามสกุล *</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="เช่น สมชาย ใจดี" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">เบอร์โทรศัพท์ *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="08X-XXX-XXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">อีเมล</label>
+                        <input type="email" id="email" name="email" placeholder="example@email.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="facebook">Facebook (สำหรับติดต่อกลับ)</label>
+                    <input type="text" id="facebook" name="facebook" placeholder="ชื่อ Facebook หรือลิงก์โปรไฟล์">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">ข้อความ/สิ่งที่อยากสอบถาม</label>
+                    <textarea id="message" name="message" rows="4" placeholder="เขียนข้อความ สอบถามรายละเอียดเพิ่มเติม..."></textarea>
+                </div>
+
+                <!-- ปุ่มส่ง -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text">ส่งข้อมูลลงทะเบียน</span>
+                    <span class="btn-spinner hidden">⏳ กำลังส่ง...</span>
+                </button>
+
+                <!-- ข้อความสถานะ -->
+                <div id="formMessage" class="form-message hidden"></div>
+            </form>
+        </section>
+
+        <!-- ข้อมูลติดต่อ -->
+        <footer class="contact-info">
+            <p>📍 <strong>สถานที่อบรม:</strong> ศูนย์การเรียนรู้อาศรมศรีมงคล สาขาลาดบัวหลวง<br>
+            ต.คลองพระยาบันลือ อ.ลาดบัวหลวง จ.พระนครศรีอยุธยา 13230</p>
+            <div class="qr-grid">
+                <div class="fb-box">
+                    <img src="assets/qr_maps.png" alt="QR code สถานที่เรียน Google Maps" class="qr-img">
+                    <div class="fb-box-text">
+                        <p>🗺️ <strong>สถานที่เรียน</strong><br>
+                            <a href="https://maps.app.goo.gl/zPrbzCbEiQ8i5KKB6" target="_blank" rel="noopener" class="map-link">เปิดแผนที่ Google Maps</a>
+                        </p>
+                        <p class="qr-hint">📱 สแกนเพื่อนำทาง</p>
+                    </div>
+                </div>
+                <div class="fb-box">
+                    <img src="assets/qr_facebook.png" alt="QR code Facebook อาศรมศรีมงคล" class="qr-img">
+                    <div class="fb-box-text">
+                        <p>📘 <strong>ติดต่อสอบถาม</strong><br>
+                            <a href="https://www.facebook.com/share/1KzsD2aJwh/" target="_blank" rel="noopener" class="fb-link">facebook.com/อาศรมศรีมงคล</a>
+                        </p>
+                        <p class="qr-hint">📱 สแกนเพื่อแชทกับเรา</p>
+                    </div>
+                </div>
+            </div>
+            <p class="copyright">© อ.พท.ศิริมงคล — อาศรมศรีมงคล</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
