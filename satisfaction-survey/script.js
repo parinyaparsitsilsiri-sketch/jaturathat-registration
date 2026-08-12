@@ -1,7 +1,7 @@
 // ===== แบบสอบถามความพึงพอใจ — อาศรมศรีมงคล =====
 
 // ⚠️ สำคัญ: ใส่ URL Web App ของพี่ (ตัวเดียวกับฟอร์มลงทะเบียน) ตรงนี้
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxN4Xe-Jbzzv-8wlTCMho9RHbHPeaKhGvfEwagM_vGmy0LS2vvnp5lnps-NbnQOlJSKrQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw8zKWzS8QbafSZLJvpR65zbuczENhmBxk7V1iyhGeCFdaiErwnsuDyEor7rUwdQUPv/exec";
 
 // คำถามความพึงพอใจ (ระดับ 1-5)
 const QUESTIONS = [
