@@ -5,7 +5,7 @@
 
 // ⚠️ สำคัญ: เปลี่ยน URL นี้เป็น Web App URL ของพี่
 // หลัง Deploy ใน Apps Script (ดูคู่มือ README.md)
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw4rAr_V4t3sOAJ5b9aLa5pgWqqDLhrxBX_HrCvYppVKV4LGzxAiDXg6IsYmqxq8dNyaw/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxN4Xe-Jbzzv-8wlTCMho9RHbHPeaKhGvfEwagM_vGmy0LS2vvnp5lnps-NbnQOlJSKrQ/exec";
 
 const form = document.getElementById("registrationForm");
 const submitBtn = document.getElementById("submitBtn");
