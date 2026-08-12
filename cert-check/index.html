@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตรวจสอบประกาศนียบัตร — อาศรมศรีมงคล</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; }
+  body {
+    background: #f5f1e6; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 30px 16px;
+  }
+  .card {
+    background: #fff; max-width: 480px; width: 100%;
+    border: 2px solid #d4af37; border-radius: 14px;
+    padding: 28px 24px; text-align: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  }
+  .logo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
+  h1 { font-size: 20px; color: #8b6914; margin-bottom: 4px; }
+  .sub { color: #777; font-size: 13px; margin-bottom: 20px; }
+  input {
+    width: 100%; padding: 13px 14px; font-size: 18px; text-align: center;
+    border: 2px solid #d4af37; border-radius: 10px; outline: none;
+    letter-spacing: 2px; margin-bottom: 12px;
+  }
+  button {
+    width: 100%; padding: 13px; font-size: 16px; font-weight: 700;
+    background: #8b6914; color: #fff; border: none; border-radius: 10px; cursor: pointer;
+  }
+  button:disabled { opacity: 0.5; }
+  .result { margin-top: 18px; padding: 16px; border-radius: 10px; font-size: 15px; display: none; }
+  .ok { background: #e8f5e9; border: 2px solid #43a047; color: #1b5e20; }
+  .bad { background: #fdecea; border: 2px solid #e53935; color: #b71c1c; }
+  .result .name { font-size: 18px; font-weight: 700; margin: 8px 0 4px; }
+  .loading { margin-top: 14px; color: #8b6914; display: none; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="logo" src="../assets/logo.jpg" alt="โลโก้อาศรมศรีมงคล">
+    <h1>ตรวจสอบประกาศนียบัตร</h1>
+    <div class="sub">อาศรมศรีมงคล — ศูนย์การเรียนรู้การแพทย์แผนไทย</div>
+    <input id="no" inputmode="numeric" maxlength="8" placeholder="กรอกเลขที่ เช่น 69070001">
+    <button id="btn" onclick="check()">ตรวจสอบ</button>
+    <div class="loading" id="loading">⏳ กำลังตรวจสอบ...</div>
+    <div class="result" id="result"></div>
+  </div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/XXXX/exec"; // ← ใส่ URL Web App หลัง deploy
+
+async function check() {
+  const no = document.getElementById("no").value.trim();
+  const res = document.getElementById("result");
+  const loading = document.getElementById("loading");
+  res.style.display = "none";
+  if (!/^\d{8}$/.test(no)) {
+    res.className = "result bad"; res.style.display = "block";
+    res.innerHTML = "⚠️ กรุณากรอกเลขที่ 8 หลัก (เช่น 69070001)";
+    return;
+  }
+  loading.style.display = "block";
+  try {
+    const r = await fetch(API_URL + "?no=" + no);
+    const d = await r.json();
+    loading.style.display = "none";
+    if (d.result === "found") {
+      res.className = "result ok"; res.style.display = "block";
+      res.innerHTML = "✅ <b>ใบประกาศนียบัตรนี้ถูกต้อง</b>" +
+        `<div class="name">${d.title} ${d.fullname}</div>` +
+        `หลักสูตร: ${d.course}<br>วันที่: ${d.date}`;
+    } else {
+      res.className = "result bad"; res.style.display = "block";
+      res.innerHTML = "❌ <b>ไม่พบหมายเลขนี้ในระบบ</b><br>โปรดตรวจสอบเลขที่อีกครั้ง หรือติดต่ออาศรมศรีมงคล";
+    }
+  } catch (e) {
+    loading.style.display = "none";
+    res.className = "result bad"; res.style.display = "block";
+    res.innerHTML = "⚠️ ระบบขัดข้องชั่วคราว โปรดลองอีกครั้ง";
+  }
+}
+</script>
+</body>
+</html>
