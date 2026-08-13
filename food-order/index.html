@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สั่งซื้ออาหาร — อาศรมศรีมงคล จตุรธาตุ ๕-๖ กย.๖๙</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-gradient(135deg, #f5f0e8 0%, #e8dcc8 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 500px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
+.header { background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%); color: white; padding: 24px 20px; text-align: center; }
+.header h1 { font-size: 22px; margin-bottom: 4px; }
+.header p { font-size: 14px; opacity: 0.9; }
+.content { padding: 20px; }
+
+/* QR Section */
+.qr-section { text-align: center; padding: 16px; background: #f9fff9; border-radius: 12px; margin-bottom: 20px; border: 1px solid #c8e6c9; }
+.qr-section img { width: 200px; height: 200px; border-radius: 8px; border: 3px solid #4caf50; }
+.qr-section .amount { font-size: 24px; font-weight: bold; color: #2e7d32; margin: 8px 0; }
+.qr-section .note { font-size: 13px; color: #666; }
+
+/* Form */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 6px; }
+.form-group input, .form-group select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; font-family: inherit; transition: border-color 0.2s; }
+.form-group input:focus, .form-group select:focus { border-color: #4caf50; outline: none; }
+.form-group select { cursor: pointer; background: white; }
+
+/* File upload */
+.upload-area { border: 2px dashed #aaa; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fafafa; }
+.upload-area:hover { border-color: #4caf50; background: #f1f8f1; }
+.upload-area.has-file { border-color: #4caf50; background: #e8f5e9; }
+.upload-area .icon { font-size: 36px; }
+.upload-area .text { font-size: 14px; color: #666; margin-top: 6px; }
+.upload-preview { width: 100%; max-width: 200px; margin: 8px auto; display: block; border-radius: 8px; }
+
+/* Food restriction details */
+.food-details { display: none; margin-top: 8px; }
+.food-details.show { display: block; }
+.food-details input { margin-bottom: 8px; }
+
+/* Submit */
+.submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%); color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 600; cursor: pointer; transition: transform 0.1s; }
+.submit-btn:hover { transform: scale(1.02); }
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Status */
+.status { padding: 14px; border-radius: 8px; text-align: center; margin: 12px 0; display: none; }
+.status.success { display: block; background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+.status.error { display: block; background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+.status.loading { display: block; background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+
+.footer { text-align: center; padding: 16px; font-size: 12px; color: #999; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🍚 สั่งซื้ออาหาร</h1>
+    <p>อาศรมศรีมงคล — หลักสูตรจตุรธาตุ ๕-๖ กันยายน ๒๕๖๙</p>
+    <p style="font-size:12px;opacity:0.85;margin-top:4px;">อาหารรวมคอฟฟี่เบรคและน้ำดื่มแล้ว</p>
+  </div>
+  <div class="content">
+
+    <!-- QR PromptPay -->
+    <div class="qr-section">
+      <img src="assets/qr-promptpay.png" alt="QR พร้อมเพย์ โอน 200 บาท" onclick="this.style.width='400px';this.style.height='400px';" ondblclick="this.style.width='200px';this.style.height='200px';">
+      <div class="amount">๒๐๐ บาท</div>
+      <div class="note">สแกน QR พร้อมเพย์ โอนเงิน ๒๐๐ บาท<br>ชื่อบัญชี: วัชรี ตอบงาม</div>
+    </div>
+
+    <form id="foodForm" onsubmit="return submitForm(event)">
+
+      <div class="form-group">
+        <label>คำนำหน้า / ยศ</label>
+        <select name="title" required>
+          <option value="">— เลือก —</option>
+          <option value="นาย">นาย</option>
+          <option value="นาง">นาง</option>
+          <option value="นางสาว">นางสาว</option>
+          <option value="พท.">พท.</option>
+          <option value="พท.ป.">พท.ป.</option>
+          <option value="พท.ว.">พท.ว.</option>
+          <option value="พท.ภ.">พท.ภ.</option>
+          <option value="พท.น.">พท.น.</option>
+          <option value="พท.ผ.">พท.ผ.</option>
+          <option value="ดร.">ดร.</option>
+          <option value="อาจารย์">อาจารย์</option>
+          <option value="แพทย์">แพทย์</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>ชื่อ <span style="color:#c62828">*</span></label>
+        <input type="text" name="firstName" required placeholder="ชื่อ">
+      </div>
+
+      <div class="form-group">
+        <label>นามสกุล <span style="color:#c62828">*</span></label>
+        <input type="text" name="lastName" required placeholder="นามสกุล">
+      </div>
+
+      <div class="form-group">
+        <label>เบอร์โทรศัพท์</label>
+        <input type="tel" name="phone" placeholder="08x-xxx-xxxx">
+      </div>
+
+      <div class="form-group">
+        <label>ประเภทอาหารที่รับประทานได้ <span style="color:#c62828">*</span></label>
+        <select name="foodType" id="foodType" required onchange="toggleFoodDetails()">
+          <option value="">— เลือก —</option>
+          <option value="กินได้ทุกอย่าง">🥗 กินได้ทุกอย่าง</option>
+          <option value="มุสลิม (ฮาลาล)">🕌 มุสลิม (ฮาลาล)</option>
+          <option value="มังสวิรัติ">🌿 มังสวิรัติ (กินไข่/นม ไม่กินเนื้อสัตว์)</option>
+          <option value="กินเจ">🥬 กินเจ (ไม่กินเนื้อสัตว์และผลิตผลจากสัตว์)</option>
+          <option value="แพ้อาหารทะเล">🦐 แพ้อาหารทะเล (กุ้ง/ปู/หอย/ปลาหมึก)</option>
+          <option value="แพ้ถั่ว">🥜 แพ้ถั่ว (ถั่วลิสง/ถั่วเหลือง/ถั่วต่างๆ)</option>
+          <option value="แพ้นม/แลคโตส">🥛 แพ้นม/แลคโตส</option>
+          <option value="แพ้กลูเตน">🌾 แพ้กลูเตน (โรคซีแล็ก)</option>
+          <option value="แพ้ไข่">🥚 แพ้ไข่</option>
+          <option value="ไม่กินหมู">🚫🐷 ไม่กินหมู</option>
+          <option value="ไม่กินเนื้อวัว">🚫🐮 ไม่กินเนื้อวัว</option>
+          <option value="ไม่กินไก่">🚫🐔 ไม่กินไก่</option>
+          <option value="ไม่กินเนื้อสัตว์">🚫🥩 ไม่กินเนื้อสัตว์ทุกชนิด</option>
+          <option value="ควบคุมอาหาร">⚖️ ควบคุมอาหาร (เบาหวาน/ความดัน/ฯลฯ)</option>
+          <option value="อื่นๆ">อื่นๆ (ระบุด้านล่าง)</option>
+        </select>
+      </div>
+
+      <div class="form-group food-details" id="foodDetails">
+        <label>ระบุรายละเอียดเพิ่มเติม (แพ้อาหารอะไร / ไม่กินอะไร)</label>
+        <input type="text" name="foodDetailsText" placeholder="เช่น แพ้อาหารทะเล, แพ้ถั่วลิสง, แพ้นม, ควบคุมน้ำตาล, ฯลฯ">
+      </div>
+
+      <div class="form-group">
+        <label>แนบสลิปการโอนเงิน <span style="color:#c62828">*</span></label>
+        <div class="upload-area" onclick="document.getElementById('slipFile').click()">
+          <div class="icon">📸</div>
+          <div class="text" id="uploadText">แตะเพื่อถ่ายรูปสลิป หรือเลือกไฟล์รูป</div>
+          <img id="uploadPreview" class="upload-preview" style="display:none;">
+        </div>
+        <input type="file" id="slipFile" accept="image/*;capture=camera" style="display:none" onchange="previewFile(this)">
+      </form>
+
+      <div id="statusMsg" class="status"></div>
+
+      <button class="submit-btn" id="submitBtn" onclick="document.getElementById('foodForm').requestSubmit()">
+        ส่งข้อมูล
+      </button>
+
+  </div>
+  <div class="footer">
+    อาศรมศรีมงคล — ศูนย์การเรียนรู้การแพทย์แผนไทยและภูมิปัญญาไทย<br>
+    โทร 084-648-9335 | arsomsrimongkol.com
+  </div>
+</div>
+
+<script>
+const WEB_APP_URL = "WEB_APP_URL_PLACEHOLDER"; // ใส่ URL Apps Script หลัง deploy
+
+let slipBase64 = null;
+
+function toggleFoodDetails() {
+  const type = document.getElementById('foodType').value;
+  const details = document.getElementById('foodDetails');
+  if (type === 'แพ้อาหารทะเล' || type === 'แพ้ถั่ว' || type === 'แพ้นม/แลคโตส' || type === 'แพ้กลูเตน' || type === 'แพ้ไข่' || type === 'ควบคุมอาหาร' || type === 'อื่นๆ' || type === 'ไม่กินเนื้อสัตว์') {
+    details.classList.add('show');
+  } else {
+    details.classList.remove('show');
+  }
+}
+
+function previewFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    // บีบอัดรูปให้เล็ก (สลิป 1x2 นิ้ว ~ ถ่ายรูปแล้วไม่ใหญ่เกิน)
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const maxW = 600;
+      const scale = Math.min(maxW / img.width, 1);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      slipBase64 = canvas.toDataURL('image/jpeg', 0.85);
+      document.getElementById('uploadPreview').src = slipBase64;
+      document.getElementById('uploadPreview').style.display = 'block';
+      document.querySelector('.upload-area').classList.add('has-file');
+      document.getElementById('uploadText').textContent = '✅ สลิปพร้อมแล้ว — แตะเพื่อเปลี่ยนรูป';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function submitForm(event) {
+  event.preventDefault();
+  const status = document.getElementById('statusMsg');
+  const btn = document.getElementById('submitBtn');
+
+  if (!slipBase64) {
+    status.className = 'status error';
+    status.textContent = '❌ กรุณาแนบสลิปการโอนเงิน';
+    return false;
+  }
+
+  const form = event.target;
+  const data = {
+    title: form.title.value,
+    firstName: form.firstName.value,
+    lastName: form.lastName.value,
+    phone: form.phone.value,
+    foodType: form.foodType.value,
+    foodDetails: form.foodDetailsText ? form.foodDetailsText.value : '',
+    slipImage: slipBase64
+  };
+
+  btn.disabled = true;
+  status.className = 'status loading';
+  status.textContent = '⏳ กำลังส่งข้อมูล...';
+
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+
+    if (result.result === 'success') {
+      status.className = 'status success';
+      status.textContent = '✅ ส่งข้อมูลสำเร็จ! ขอบคุณคุณ' + data.firstName + ' ' + data.lastName;
+      form.reset();
+      slipBase64 = null;
+      document.getElementById('uploadPreview').style.display = 'none';
+      document.querySelector('.upload-area').classList.remove('has-file');
+      document.getElementById('uploadText').textContent = 'แตะเพื่อถ่ายรูปสลิป หรือเลือกไฟล์รูป';
+      document.getElementById('foodDetails').classList.remove('show');
+    } else {
+      status.className = 'status error';
+      status.textContent = '❌ ส่งไม่สำเร็จ: ' + (result.message || 'ไม่ทราบสาเหตุ');
+    }
+  } catch (err) {
+    status.className = 'status error';
+    status.textContent = '❌ ไม่สามารถเชื่อมต่อ: ' + err.message;
+  }
+
+  btn.disabled = false;
+  return false;
+}
+</script>
+</body>
+</html>
