@@ -74,21 +74,12 @@ body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-
 
       <div class="form-group">
         <label>คำนำหน้า / ยศ</label>
-        <select name="title" required>
-          <option value="">— เลือก —</option>
-          <option value="นาย">นาย</option>
-          <option value="นาง">นาง</option>
-          <option value="นางสาว">นางสาว</option>
-          <option value="พท.">พท.</option>
-          <option value="พท.ป.">พท.ป.</option>
-          <option value="พท.ว.">พท.ว.</option>
-          <option value="พท.ภ.">พท.ภ.</option>
-          <option value="พท.น.">พท.น.</option>
-          <option value="พท.ผ.">พท.ผ.</option>
-          <option value="ดร.">ดร.</option>
-          <option value="อาจารย์">อาจารย์</option>
-          <option value="แพทย์">แพทย์</option>
-        </select>
+        <select name="title" id="title" required>
+                <option value="">— เลือก —</option>
+                <option value="นาย">นาย</option>
+                <option value="นาง">นาง</option>
+                <option value="นางสาว">นางสาว</option>
+              </select>
       </div>
 
       <div class="form-group">
@@ -111,7 +102,7 @@ body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-
         <select name="foodType" id="foodType" required onchange="toggleFoodDetails()">
           <option value="">— เลือก —</option>
           <option value="กินได้ทุกอย่าง">🥗 กินได้ทุกอย่าง</option>
-          <option value="มังสวิรัติ">🌿 มังสวิรัติ (กินไข่/นม ไม่กินเนื้อสัตว์)</option>
+          <option value="มุสลิม">🕌 มุสลิม</option>
           <option value="แพ้อาหารทะเล">🦐 แพ้อาหารทะเล (กุ้ง/ปู/หอย/ปลาหมึก)</option>
           <option value="แพ้ถั่ว">🥜 แพ้ถั่ว (ถั่วลิสง/ถั่วเหลือง/ถั่วต่างๆ)</option>
           <option value="แพ้นม/แลคโตส">🥛 แพ้นม/แลคโตส</option>
