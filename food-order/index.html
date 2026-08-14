@@ -67,7 +67,7 @@ body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-
     <div class="qr-section">
       <img src="assets/qr-promptpay.png" alt="QR พร้อมเพย์ โอน 200 บาท" onclick="this.style.width='400px';this.style.height='400px';" ondblclick="this.style.width='200px';this.style.height='200px';">
       <div class="amount">๒๐๐ บาท</div>
-      <div class="note">สแกน QR พร้อมเพย์ โอนเงิน ๒๐๐ บาท<br>ชื่อบัญชี: วัชรี ตอบงาม</div>
+      <div class="note">สแกน QR พร้อมเพย์ โอนเงิน ๒๐๐ บาท<br>ชื่อบัญชี: วัชรี ตอบงาม | เบอร์: ๐๘๔-๖๔๘-๙๓๓๕</div>
     </div>
 
     <form id="foodForm" onsubmit="return submitForm(event)">
@@ -113,7 +113,6 @@ body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-
           <option value="กินได้ทุกอย่าง">🥗 กินได้ทุกอย่าง</option>
           <option value="มุสลิม (ฮาลาล)">🕌 มุสลิม (ฮาลาล)</option>
           <option value="มังสวิรัติ">🌿 มังสวิรัติ (กินไข่/นม ไม่กินเนื้อสัตว์)</option>
-          <option value="กินเจ">🥬 กินเจ (ไม่กินเนื้อสัตว์และผลิตผลจากสัตว์)</option>
           <option value="แพ้อาหารทะเล">🦐 แพ้อาหารทะเล (กุ้ง/ปู/หอย/ปลาหมึก)</option>
           <option value="แพ้ถั่ว">🥜 แพ้ถั่ว (ถั่วลิสง/ถั่วเหลือง/ถั่วต่างๆ)</option>
           <option value="แพ้นม/แลคโตส">🥛 แพ้นม/แลคโตส</option>
@@ -122,8 +121,6 @@ body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-
           <option value="ไม่กินหมู">🚫🐷 ไม่กินหมู</option>
           <option value="ไม่กินเนื้อวัว">🚫🐮 ไม่กินเนื้อวัว</option>
           <option value="ไม่กินไก่">🚫🐔 ไม่กินไก่</option>
-          <option value="ไม่กินเนื้อสัตว์">🚫🥩 ไม่กินเนื้อสัตว์ทุกชนิด</option>
-          <option value="ควบคุมอาหาร">⚖️ ควบคุมอาหาร (เบาหวาน/ความดัน/ฯลฯ)</option>
           <option value="อื่นๆ">อื่นๆ (ระบุด้านล่าง)</option>
         </select>
       </div>
@@ -164,7 +161,7 @@ let slipBase64 = null;
 function toggleFoodDetails() {
   const type = document.getElementById('foodType').value;
   const details = document.getElementById('foodDetails');
-  if (type === 'แพ้อาหารทะเล' || type === 'แพ้ถั่ว' || type === 'แพ้นม/แลคโตส' || type === 'แพ้กลูเตน' || type === 'แพ้ไข่' || type === 'ควบคุมอาหาร' || type === 'อื่นๆ' || type === 'ไม่กินเนื้อสัตว์') {
+  if (type === 'แพ้อาหารทะเล' || type === 'แพ้ถั่ว' || type === 'แพ้นม/แลคโตส' || type === 'แพ้กลูเตน' || type === 'แพ้ไข่' || type === 'อื่นๆ') {
     details.classList.add('show');
   } else {
     details.classList.remove('show');
