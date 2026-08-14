@@ -70,7 +70,7 @@ body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-
       <div class="note">สแกน QR พร้อมเพย์ โอนเงิน ๒๐๐ บาท<br>ชื่อบัญชี: วัชรี ตอบงาม | เบอร์: ๐๘๔-๖๔๘-๙๓๓๕</div>
     </div>
 
-    <form id="foodForm" onsubmit="return submitForm(event)">
+    <form id="foodForm" action="https://formspree.io/f/xyegpjle" method="POST">
 
       <div class="form-group">
         <label>คำนำหน้า / ยศ</label>
@@ -143,101 +143,5 @@ body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: linear-
   </div>
 </div>
 
-<script>
-const WEB_APP_URL = "WEB_APP_URL_PLACEHOLDER"; // ใส่ URL Apps Script หลัง deploy
-
-let slipBase64 = null;
-
-function toggleFoodDetails() {
-  const type = document.getElementById('foodType').value;
-  const details = document.getElementById('foodDetails');
-  if (type === 'แพ้อาหารทะเล' || type === 'แพ้ถั่ว' || type === 'แพ้นม/แลคโตส' || type === 'แพ้กลูเตน' || type === 'แพ้ไข่' || type === 'อื่นๆ') {
-    details.classList.add('show');
-  } else {
-    details.classList.remove('show');
-  }
-}
-
-function previewFile(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    // บีบอัดรูปให้เล็ก (สลิป 1x2 นิ้ว ~ ถ่ายรูปแล้วไม่ใหญ่เกิน)
-    const img = new Image();
-    img.onload = function() {
-      const canvas = document.createElement('canvas');
-      const maxW = 600;
-      const scale = Math.min(maxW / img.width, 1);
-      canvas.width = img.width * scale;
-      canvas.height = img.height * scale;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      slipBase64 = canvas.toDataURL('image/jpeg', 0.85);
-      document.getElementById('uploadPreview').src = slipBase64;
-      document.getElementById('uploadPreview').style.display = 'block';
-      document.querySelector('.upload-area').classList.add('has-file');
-      document.getElementById('uploadText').textContent = '✅ สลิปพร้อมแล้ว — แตะเพื่อเปลี่ยนรูป';
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-}
-
-async function submitForm(event) {
-  event.preventDefault();
-  const status = document.getElementById('statusMsg');
-  const btn = document.getElementById('submitBtn');
-
-  if (!slipBase64) {
-    status.className = 'status error';
-    status.textContent = '❌ กรุณาแนบสลิปการโอนเงิน';
-    return false;
-  }
-
-  const form = event.target;
-  const data = {
-    title: form.title.value,
-    firstName: form.firstName.value,
-    lastName: form.lastName.value,
-    phone: form.phone.value,
-    foodType: form.foodType.value,
-    foodDetails: form.foodDetailsText ? form.foodDetailsText.value : '',
-    slipImage: slipBase64
-  };
-
-  btn.disabled = true;
-  status.className = 'status loading';
-  status.textContent = '⏳ กำลังส่งข้อมูล...';
-
-  try {
-    const res = await fetch(WEB_APP_URL, {
-      method: 'POST',
-      body: JSON.stringify(data)
-    });
-    const result = await res.json();
-
-    if (result.result === 'success') {
-      status.className = 'status success';
-      status.textContent = '✅ ส่งข้อมูลสำเร็จ! ขอบคุณคุณ' + data.firstName + ' ' + data.lastName;
-      form.reset();
-      slipBase64 = null;
-      document.getElementById('uploadPreview').style.display = 'none';
-      document.querySelector('.upload-area').classList.remove('has-file');
-      document.getElementById('uploadText').textContent = 'แตะเพื่อถ่ายรูปสลิป หรือเลือกไฟล์รูป';
-      document.getElementById('foodDetails').classList.remove('show');
-    } else {
-      status.className = 'status error';
-      status.textContent = '❌ ส่งไม่สำเร็จ: ' + (result.message || 'ไม่ทราบสาเหตุ');
-    }
-  } catch (err) {
-    status.className = 'status error';
-    status.textContent = '❌ ไม่สามารถเชื่อมต่อ: ' + err.message;
-  }
-
-  btn.disabled = false;
-  return false;
-}
-</script>
 </body>
 </html>
