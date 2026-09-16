@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ลงทะเบียนเรียน — การตรวจวินิจฉัยอาการตามแนวเส้นประธาน 10</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* CI V5 สมาคมแพทย์แผนไทย มสธ. */
+  :root {
+    --teal: #005B41;      /* เขียวหัวเป็ด */
+    --gold: #F0B414;      /* ทองภูมิปัญญา */
+    --brown: #A05F37;     /* น้ำตาลหม้อดิน */
+    --yellow: #FFDC00;    /* เหลืองอร่าม */
+    --leaf: #96C82D;      /* เขียวยอดอ่อน */
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Prompt", sans-serif; }
+  body { background: #f4f7f5; min-height: 100vh; padding: 20px; }
+  .container { max-width: 640px; margin: 0 auto; background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,91,65,.2); }
+  .header { background: linear-gradient(135deg, var(--teal) 0%, #007a58 100%); color: var(--white); text-align: center; padding: 28px 20px; border-bottom: 5px solid var(--gold); }
+  .header h1 { font-size: 21px; font-weight: 700; }
+  .logo { width: 92px; height: 92px; object-fit: contain; background: #fff; border-radius: 50%; padding: 5px; border: 3px solid var(--gold); margin-bottom: 10px; }
+  .header .sub { font-size: 14px; opacity: .95; margin-top: 6px; }
+  .header .date-badge { display: inline-block; background: var(--gold); color: var(--teal); font-weight: 700; padding: 5px 16px; border-radius: 20px; margin-top: 12px; font-size: 14px; }
+  form { padding: 24px 26px; }
+  .section-title { font-size: 17px; font-weight: 700; color: var(--teal); margin: 18px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--gold); }
+  .form-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .form-group { flex: 1 1 46%; margin-bottom: 14px; }
+  .form-group.full { flex-basis: 100%; }
+  /* ===== Mobile-first: มือถือเป็นหลัก ===== */
+  input, select { font-size: 16px; } /* กัน iOS ซูมอัตโนมัติ */
+  @media (max-width: 560px) {
+    body { padding: 8px; }
+    .container { border-radius: 12px; }
+    .header { padding: 18px 14px; }
+    .header h1 { font-size: 18px; }
+    .header .sub { font-size: 13px; }
+    .logo { width: 74px; height: 74px; }
+    form { padding: 16px 14px; }
+    .form-row { gap: 0; }
+    .form-group { flex-basis: 100%; }
+    .section-title { font-size: 16px; }
+    input, select { padding: 12px; }
+    .btn-submit { position: sticky; bottom: 8px; font-size: 17px; padding: 16px; box-shadow: 0 6px 18px rgba(0,91,65,.35); }
+    .btn-pdpa { font-size: 14px; padding: 13px; }
+    .pdpa { font-size: 12.5px; }
+    .modal-box { max-height: 92vh; border-radius: 12px; }
+    .modal-body { font-size: 13.5px; padding: 15px 16px; }
+    .modal-footer button { padding: 14px; }
+  }
+  label { font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 5px; }
+  .req { color: #c62828; }
+  input, select { width: 100%; padding: 10px 12px; border: 1.5px solid #c8d6cf; border-radius: 8px; font-size: 14px; outline: none; }
+  input:focus, select:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,91,65,.12); }
+  .pdpa { background: #f0faf3; border: 1.5px solid var(--leaf); border-radius: 10px; padding: 14px; font-size: 12.5px; color: #444; margin: 16px 0; }
+  .pdpa label { font-weight: 400; display: flex; gap: 8px; align-items: flex-start; }
+  .pdpa input { width: auto; margin-top: 2px; }
+  .btn-submit { width: 100%; background: var(--teal); color: var(--white); border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: .2s; }
+  .btn-submit:hover { background: var(--brown); }
+  .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+  .form-message { text-align: center; padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 14px; display: none; }
+  .form-message.success { display: block; background: #e8f5e9; color: #1b5e20; }
+  .form-message.error { display: block; background: #ffebee; color: #b71c1c; }
+  .footer { background: var(--brown); color: var(--white); text-align: center; padding: 14px; font-size: 12px; }
+  .footer a { color: var(--yellow); font-weight: 600; text-decoration: none; }
+  .spinner { display: none; }
+  /* PDPA Modal */
+  .btn-pdpa { width: 100%; background: var(--gold); color: var(--teal); border: 2px dashed var(--teal); padding: 12px; border-radius: 10px; font-size: 14.5px; font-weight: 700; cursor: pointer; }
+  .btn-pdpa:hover { background: var(--yellow); }
+  .btn-pdpa.read { background: #e8f5e9; border-style: solid; border-color: var(--leaf); color: var(--teal); }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 999; display: none; align-items: center; justify-content: center; padding: 16px; }
+  .modal-box { background: #fff; border-radius: 14px; max-width: 620px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; }
+  .modal-header { background: var(--teal); color: #fff; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .modal-header h3 { font-size: 16px; font-weight: 700; }
+  .modal-close { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+  .modal-body { padding: 18px 20px; overflow-y: auto; font-size: 13px; line-height: 1.75; color: #333; }
+  .modal-body p { margin-bottom: 12px; }
+  .modal-footer { padding: 12px 18px; border-top: 1px solid #e0e0e0; display: flex; gap: 10px; }
+  .modal-footer button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .btn-accept { background: var(--teal); color: #fff; }
+  .btn-cancel { background: #eee; color: #555; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <img src="assets/logo_thaimed_Stou.png" alt="โลโก้สมาคมแพทย์แผนไทย มสธ." class="logo">
+    <h1>📋 ลงทะเบียนเรียน</h1>
+    <p class="sub">การตรวจวินิจฉัยอาการตามแนวเส้นประธาน 10</p>
+    <span class="date-badge">📅 25-27 กันยายน 2569</span>
+    <p class="sub" style="margin-top:8px">วิทยากร: อ.ปัญญวัฒน์ ตั้งจิตมโนธรรม (อ.ปิง)</p>
+  </div>
+
+  <form id="regForm" novalidate>
+    <div class="section-title">👤 ข้อมูลผู้สมัคร</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>คำนำหน้า <span class="req">*</span></label>
+        <select id="title" required>
+          <option value="">— เลือก —</option>
+          <option>นาย</option><option>นาง</option><option>นางสาว</option>
+          <option>พท.</option><option>พท.ป.</option><option>ดร.</option><option>ผศ.</option><option>อื่นๆ</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>สถานภาพ <span class="req">*</span></label>
+        <select id="memberType" required>
+          <option value="">— เลือก —</option>
+          <option>สมาชิกสมาคมฯ</option><option>ศิษย์เก่าแพทย์แผนไทย มสธ.</option>
+          <option>นักศึกษา (กำลังศึกษา)</option><option>บุคคลภายนอก</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>ชื่อ <span class="req">*</span></label><input id="firstName" required placeholder="ชื่อจริง"></div>
+      <div class="form-group"><label>นามสกุล <span class="req">*</span></label><input id="lastName" required placeholder="นามสกุล"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>อีเมล <span class="req">*</span></label><input id="email" type="email" required placeholder="email@example.com"></div>
+      <div class="form-group"><label>เบอร์โทร</label><input id="phone" placeholder="08x-xxx-xxxx"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>LINE ID</label><input id="lineId"></div>
+      <div class="form-group"><label>เพศ</label>
+        <select id="gender"><option value="">—</option><option>ชาย</option><option>หญิง</option><option>ไม่ระบุ</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>อายุ</label><input id="age" type="number" min="15" max="100" placeholder="เช่น 35"></div>
+      <div class="form-group"><label>ปีที่จบการศึกษา (ถ้ามี)</label><input id="gradYear" placeholder="เช่น 2560"></div>
+    </div>
+    <div class="form-group full"><label>อาชีพ</label>
+      <select id="occupation">
+        <option value="">— เลือก —</option>
+        <option>แพทย์แผนไทย</option><option>พนักงานนวดแผนไทย</option><option>ผู้ประกอบการ/ธุรกิจส่วนตัว</option>
+        <option>รับราชการ</option><option>นักศึกษา</option><option>อื่นๆ</option>
+      </select>
+    </div>
+
+    <div class="pdpa">
+      <button type="button" class="btn-pdpa" id="pdpaBtn" onclick="openPDPA()">📄 กดอ่านคำยินยอม PDPA ฉบับเต็ม (ต้องอ่านก่อน)</button>
+      <label style="margin-top:12px"><input type="checkbox" id="padaConsent" disabled> <span>ข้าพเจ้ายินยอมให้สมาคมฯ เก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคล ตามคำยินยอมที่ได้อ่านแล้ว <span class="req">*</span></span></label>
+    </div>
+
+    <button type="submit" class="btn-submit" id="submitBtn">ลงทะเบียน <span class="spinner" id="spinner">⏳</span></button>
+    <div class="form-message" id="formMessage"></div>
+  </form>
+
+  <div class="footer">
+    สมาคมแพทย์แผนไทย มหาวิทยาลัยสุโขทัยธรรมาธิราช<br>
+    <a href="https://thaimedstou.com" target="_blank">thaimedstou.com</a> | 9/9 ม.9 ถ.แจ้งวัฒนะ ต.บางพูด อ.ปากเกร็ด จ.นนทบุรี 11120<br>
+    โทร 086-369-2546
+  </div>
+</div>
+
+<!-- ===== PDPA Modal (ต้องกดอ่านก่อน) ===== -->
+<div class="modal-overlay" id="pdpaModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📄 คำยินยอม PDPA</h3>
+      <button type="button" class="modal-close" onclick="closePDPA()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>คำยินยอมการเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคล</strong></p>
+      <p>สมาคมแพทย์แผนไทย มหาวิทยาลัยสุโขทัยธรรมาธิราช (ผู้ควบคุมข้อมูลส่วนบุคคล) ขอแจ้งรายละเอียดและขอความยินยอมจากท่าน ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. ๒๕๖๒ (PDPA) ดังนี้</p>
+      <p><strong>๑. ผู้ควบคุมข้อมูลส่วนบุคคล</strong><br>สมาคมแพทย์แผนไทย มหาวิทยาลัยสุโขทัยธรรมาธิราช<br>เลขที่ ๙/๙ หมู่ที่ ๙ ถนนแจ้งวัฒนะ ตำบลบางพูด อำเภอปากเกร็ด จังหวัดนนทบุรี ๑๑๑๒๐<br>โทรศัพท์ ๐๘๖-๓๖๙-๒๕๔๖</p>
+      <p><strong>๒. วัตถุประสงค์ในการเก็บรวบรวมข้อมูล</strong><br>(๑) เพื่อการลงทะเบียนเข้ารับการอบรมและออกประกาศนียบัตร<br>(๒) เพื่อติดต่อประสานงาน แจ้งข่าวสาร และให้บริการด้านวิชาการ<br>(๓) เพื่อใช้เป็นหลักฐานการดำเนินกิจกรรมและการจัดอบรม<br>(๔) เพื่อการประชาสัมพันธ์กิจกรรมของสมาคมฯ ผ่านสื่อต่าง ๆ</p>
+      <p><strong>๓. ข้อมูลส่วนบุคคลที่จัดเก็บ</strong><br>คำนำหน้า ชื่อ-นามสกุล อีเมล เบอร์โทรศัพท์ LINE ID เพศ อายุ อาชีพ สถานภาพสมาชิก และภาพถ่าย/วิดีโอระหว่างการอบรม</p>
+      <p><strong>๔. ระยะเวลาการเก็บรักษา</strong><br>สมาคมฯ จะเก็บรักษาข้อมูลไว้ตามความจำเป็นของวัตถุประสงค์ที่แจ้งไว้ และจะลบหรือทำลายเมื่อครบกำหนด หรือเมื่อท่านเพิกถอนความยินยอม</p>
+      <p><strong>๕. สิทธิของเจ้าของข้อมูล</strong><br>(๑) สิทธิขอถอนความยินยอม (๒) สิทธิขอเข้าถึงและรับสำเนาข้อมูล (๓) สิทธิขอให้แก้ไขข้อมูลให้ถูกต้อง (๔) สิทธิขอให้ลบหรือทำลายข้อมูล (๕) สิทธิขอให้ระงับการใช้ข้อมูล (๖) สิทธิขอให้โอนย้ายข้อมูล (๗) สิทธิร้องเรียนต่อหน่วยงานที่กำกับดูแล</p>
+      <p><strong>๖. ผลของการไม่ให้ความยินยอม</strong><br>การไม่ให้ความยินยอมอาจมีผลต่อการออกประกาศนียบัตร และการนำภาพของท่านไปใช้ประชาสัมพันธ์กิจกรรม</p>
+      <p><strong>๗. การเพิกถอนความยินยอม</strong><br>ท่านสามารถเพิกถอนความยินยอมได้ตลอดเวลา โดยติดต่อสมาคมฯ ที่หมายเลขโทรศัพท์ ๐๘๖-๓๖๙-๒๕๔๖</p>
+      <p style="color:#888">ข้าพเจ้าได้อ่านและเข้าใจข้อความข้างต้นแล้ว และให้ความยินยอมด้วยความสมัครใจ</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-cancel" onclick="closePDPA()">ปิด</button>
+      <button type="button" class="btn-accept" onclick="acceptPDPA()">✅ ข้าพเจ้ายินยอม</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ⚠️ ใส่ URL Web App (จาก Apps Script /exec) ตรงนี้
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzxZANlepalugXU1Grmk0WZVNd80PMZVe2Q3wP6mzXDArOuziyFaKAvEPD0aOCAHTsE/exec";
+
+const form = document.getElementById("regForm");
+const msg = document.getElementById("formMessage");
+const btn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  if (!form.checkValidity()) { form.reportValidity(); return; }
+  if (!pdpaRead) {
+    showMsg("⚠️ กรุณากดปุ่ม “อ่านคำยินยอม PDPA” ให้ครบก่อนลงทะเบียน", "error");
+    document.getElementById("pdpaBtn").scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
+  if (!document.getElementById("padaConsent").checked) {
+    showMsg("⚠️ กรุณาติ๊กยอมรับความยินยอม (PDPA) ก่อนลงทะเบียน", "error"); return;
+  }
+  btn.disabled = true;
+  showMsg("กำลังส่งข้อมูล...", "success");
+  const data = {
+    action: "register",
+    title: document.getElementById("title").value,
+    firstName: document.getElementById("firstName").value.trim(),
+    lastName: document.getElementById("lastName").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    lineId: document.getElementById("lineId").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    gender: document.getElementById("gender").value,
+    age: document.getElementById("age").value,
+    occupation: document.getElementById("occupation").value,
+    memberType: document.getElementById("memberType").value,
+    gradYear: document.getElementById("gradYear").value.trim(),
+    padaConsent: "ยินยอม"
+  };
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(data)
+    });
+    showMsg("✅ ลงทะเบียนสำเร็จ! ข้อมูลถูกบันทึกแล้ว ขอบคุณครับ 🙏", "success");
+    form.reset();
+  } catch (err) {
+    showMsg("❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่ หรือติดต่อสำนักงานสมาคมฯ", "error");
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// ===== PDPA Modal (ต้องกดอ่านก่อน) =====
+let pdpaRead = false;
+function markPdpaRead() {
+  pdpaRead = true;
+  const c = document.getElementById("padaConsent");
+  c.disabled = false;
+  const b = document.getElementById("pdpaBtn");
+  b.classList.add("read");
+  b.textContent = "✅ อ่านคำยินยอมแล้ว (กดอ่านซ้ำได้)";
+}
+function openPDPA() {
+  document.getElementById("pdpaModal").style.display = "flex";
+}
+function closePDPA() {
+  document.getElementById("pdpaModal").style.display = "none";
+  markPdpaRead();
+}
+function acceptPDPA() {
+  markPdpaRead();
+  document.getElementById("padaConsent").checked = true;
+  document.getElementById("pdpaModal").style.display = "none";
+  showMsg("✅ บันทึกความยินยอมแล้ว — กรอกข้อมูลให้ครบแล้วกดลงทะเบียนได้เลย", "success");
+}
+
+function showMsg(text, type) {
+  msg.textContent = text;
+  msg.className = "form-message " + type;
+}
+</script>
+</body>
+</html>
