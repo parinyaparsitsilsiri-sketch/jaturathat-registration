@@ -99,8 +99,48 @@
         <label>คำนำหน้า <span class="req">*</span></label>
         <select id="title" required>
           <option value="">— เลือก —</option>
-          <option>นาย</option><option>นาง</option><option>นางสาว</option>
-          <option>พท.</option><option>พท.ป.</option><option>ดร.</option><option>ผศ.</option><option>อื่นๆ</option>
+          <optgroup label="ทั่วไป">
+            <option>นาย</option><option>นาง</option><option>นางสาว</option>
+            <option>ดร.</option><option>นพ.</option><option>พญ.</option>
+            <option>ผศ.</option><option>รศ.</option><option>ศ.</option>
+          </optgroup>
+          <optgroup label="ผู้ประกอบโรคศิลปะ/การแพทย์แผนไทย">
+            <option>พท.</option><option>พท.ว.</option><option>พท.ภ.</option>
+            <option>พท.น.</option><option>พท.ผ.</option><option>พท.ป.</option>
+            <option>หมอพื้นบ้าน</option>
+          </optgroup>
+          <optgroup label="ทหารบก">
+            <option>พล.อ.</option><option>พล.ท.</option><option>พล.ต.</option>
+            <option>พ.อ.</option><option>พ.ท.</option><option>พ.ต.</option>
+            <option>ร.อ.</option><option>ร.ท.</option><option>ร.ต.</option>
+            <option>จ.ส.อ.</option><option>จ.ส.ท.</option><option>จ.ส.ต.</option>
+            <option>ส.อ.</option><option>ส.ท.</option><option>ส.ต.</option>
+          </optgroup>
+          <optgroup label="ทหารเรือ">
+            <option>พล.ร.อ.</option><option>พล.ร.ท.</option><option>พล.ร.ต.</option>
+            <option>น.อ. (เรือ)</option><option>น.ท. (เรือ)</option><option>น.ต. (เรือ)</option>
+            <option>ร.อ. (เรือ)</option><option>ร.ท. (เรือ)</option><option>ร.ต. (เรือ)</option>
+            <option>พ.จ.อ.</option><option>พ.จ.ท.</option><option>พ.จ.ต.</option>
+            <option>จ่าเอก</option><option>จ่าโท</option><option>จ่าตรี</option>
+          </optgroup>
+          <optgroup label="ทหารอากาศ">
+            <option>พล.อ.อ.</option><option>พล.อ.ท.</option><option>พล.อ.ต.</option>
+            <option>น.อ. (อากาศ)</option><option>น.ท. (อากาศ)</option><option>น.ต. (อากาศ)</option>
+            <option>ร.อ. (อากาศ)</option><option>ร.ท. (อากาศ)</option><option>ร.ต. (อากาศ)</option>
+            <option>พ.อ.อ.</option><option>พ.อ.ท.</option><option>พ.อ.ต.</option>
+            <option>จ.อ. (อากาศ)</option><option>จ.ท. (อากาศ)</option><option>จ.ต. (อากาศ)</option>
+          </optgroup>
+          <optgroup label="ตำรวจ">
+            <option>พล.ต.อ.</option><option>พล.ต.ท.</option><option>พล.ต.ต.</option>
+            <option>พ.ต.อ. (ตำรวจ)</option><option>พ.ต.ท. (ตำรวจ)</option><option>พ.ต.ต. (ตำรวจ)</option>
+            <option>ร.ต.อ. (ตำรวจ)</option><option>ร.ต.ท. (ตำรวจ)</option><option>ร.ต.ต. (ตำรวจ)</option>
+            <option>ด.ต.</option><option>จ.ส.ต. (ตำรวจ)</option>
+            <option>ส.ต.อ.</option><option>ส.ต.ท.</option><option>ส.ต.ต.</option>
+          </optgroup>
+          <optgroup label="ศาสนา/อื่นๆ">
+            <option>พระครู</option><option>พระมหา</option><option>อาจารย์</option>
+            <option>อื่นๆ</option>
+          </optgroup>
         </select>
       </div>
       <div class="form-group">
@@ -127,14 +167,37 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>อายุ</label><input id="age" type="number" min="15" max="100" placeholder="เช่น 35"></div>
-      <div class="form-group"><label>ปีที่จบการศึกษา (ถ้ามี)</label><input id="gradYear" placeholder="เช่น 2560"></div>
+      <div class="form-group full" style="flex-basis:100%">
+        <label style="display:flex;align-items:center;gap:8px;font-size:14px">
+          <input type="checkbox" id="enCert" style="width:18px;height:18px"> 🌍 ต้องการประกาศนียบัตรภาษาอังกฤษ
+        </label>
+      </div>
+    </div>
+    <div class="form-row" id="enFields" style="display:none">
+      <div class="form-group"><label>ชื่อ (ภาษาอังกฤษ)</label><input id="firstNameEn" placeholder="First Name"></div>
+      <div class="form-group"><label>นามสกุล (ภาษาอังกฤษ)</label><input id="lastNameEn" placeholder="Last Name"></div>
     </div>
     <div class="form-group full"><label>อาชีพ</label>
       <select id="occupation">
         <option value="">— เลือก —</option>
-        <option>แพทย์แผนไทย</option><option>พนักงานนวดแผนไทย</option><option>ผู้ประกอบการ/ธุรกิจส่วนตัว</option>
-        <option>รับราชการ</option><option>นักศึกษา</option><option>อื่นๆ</option>
+        <optgroup label="ด้านการแพทย์/สุขภาพ">
+          <option>แพทย์แผนไทย</option><option>ผู้ประกอบโรคศิลปะ (พท.ว./พท.ภ./พท.น./พท.ผ.)</option>
+          <option>พนักงานนวดแผนไทย</option><option>หมอพื้นบ้าน</option>
+          <option>แพทย์</option><option>พยาบาล</option><option>เภสัชกร</option>
+          <option>นักกายภาพบำบัด</option><option>บุคลากรสาธารณสุข</option>
+        </optgroup>
+        <optgroup label="ด้านการศึกษา">
+          <option>อาจารย์/ครู</option><option>นักศึกษา</option><option>นักวิจัย/วิชาการ</option>
+        </optgroup>
+        <optgroup label="งานราชการ/รัฐวิสาหกิจ">
+          <option>ข้าราชการ</option><option>พนักงานรัฐวิสาหกิจ</option><option>ทหาร/ตำรวจ/อาสาสมัคร</option>
+        </optgroup>
+        <optgroup label="ธุรกิจ/อื่นๆ">
+          <option>ผู้ประกอบการ/ธุรกิจส่วนตัว</option><option>พนักงานบริษัทเอกชน</option>
+          <option>ค้าขาย/ธุรกิจอิสระ</option><option>เกษตรกร</option>
+          <option>แม่บ้าน/พ่อบ้าน</option><option>เกษียณอายุ</option><option>ว่างงาน</option>
+          <option>อื่นๆ</option>
+        </optgroup>
       </select>
     </div>
 
@@ -184,6 +247,11 @@
 // ⚠️ ใส่ URL Web App (จาก Apps Script /exec) ตรงนี้
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzxZANlepalugXU1Grmk0WZVNd80PMZVe2Q3wP6mzXDArOuziyFaKAvEPD0aOCAHTsE/exec";
 
+// แสดง/ซ่อนช่องชื่อภาษาอังกฤษ ตามการติ๊ก "ต้องการประกาศนียบัตรภาษาอังกฤษ"
+document.getElementById("enCert").addEventListener("change", function() {
+  document.getElementById("enFields").style.display = this.checked ? "flex" : "none";
+});
+
 const form = document.getElementById("regForm");
 const msg = document.getElementById("formMessage");
 const btn = document.getElementById("submitBtn");
@@ -213,9 +281,18 @@ form.addEventListener("submit", async function(e) {
     age: document.getElementById("age").value,
     occupation: document.getElementById("occupation").value,
     memberType: document.getElementById("memberType").value,
-    gradYear: document.getElementById("gradYear").value.trim(),
+    gradYear: "",
+    enCert: document.getElementById("enCert").checked ? "ต้องการ" : "ไม่ต้องการ",
+    firstNameEn: document.getElementById("firstNameEn").value.trim(),
+    lastNameEn: document.getElementById("lastNameEn").value.trim(),
     padaConsent: "ยินยอม"
   };
+  // ถ้าติ๊กประกาศนียบัตรภาษาอังกฤษ → ต้องกรอกชื่อ-นามสกุลอังกฤษให้ครบ
+  if (data.enCert === "ต้องการ" && (!data.firstNameEn || !data.lastNameEn)) {
+    showMsg("⚠️ กรุณากรอกชื่อและนามสกุลภาษาอังกฤษให้ครบ (สำหรับประกาศนียบัตรภาษาอังกฤษ)", "error");
+    document.getElementById("enFields").scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
   try {
     const res = await sendData(data);
     if (res && res.result === "error") {
