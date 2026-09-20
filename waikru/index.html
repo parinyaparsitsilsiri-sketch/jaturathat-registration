@@ -3,11 +3,650 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="refresh" content="0; url=https://league-abilities-henry-gel.trycloudflare.com">
-<title>กำลังเปิดระบบ...</title>
-<style>body{font-family:"Noto Sans Thai",sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#fdf8ec}a{color:#8a6d1a;font-weight:700}</style>
+<title>แจ้งความจำนงร่วมงานไหว้ครูแพทย์แผนไทย ประจำปี ๒๕๖๙</title>
+<style>
+/* style.css — ระบบแจ้งความจำนงพิธีไหว้ครู 2569 สมาคมแพทย์แผนไทย มสธ.
+   ธีม: เขียว-ทอง-ขาว */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  background: linear-gradient(135deg, #1a4d2e 0%, #2e7d4f 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #eee;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  background: #fff;
+  color: #333;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.header {
+  background: linear-gradient(135deg, #1a4d2e 0%, #2e7d4f 100%);
+  color: #fff;
+  text-align: center;
+  padding: 28px 20px;
+  border-bottom: 4px solid #c9a227;
+}
+
+.header h1 { font-size: 22px; margin-bottom: 6px; }
+.header p { font-size: 15px; opacity: 0.95; }
+.header .sub { font-size: 14px; margin-top: 4px; color: #f4d03f; font-weight: 700; }
+
+.header-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.45));
+  animation: float-logo 3s ease-in-out infinite;
+}
+
+/* โปสเตอร์หัวฟอร์ม */
+.header-poster {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  border: 3px solid #f4d03f;
+}
+
+/* โลโก้ลอยขึ้นลงเบาๆ */
+@keyframes float-logo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+form { padding: 24px 28px 10px; }
+
+/* ===== กล่องประกาศ ===== */
+.announcement {
+  background: #f0faf3;
+  border-left: 5px solid #2e7d4f;
+  border-right: 5px solid #c9a227;
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 18px 24px 0;
+}
+
+.announcement h2 {
+  font-size: 16px;
+  color: #1a4d2e;
+  margin-bottom: 10px;
+}
+
+.announcement p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+}
+
+.announcement strong { color: #1a4d2e; }
+
+.announcement-note {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #8c6e1a !important;
+}
+
+/* ===== QR ลิงก์ท้ายฟอร์ม ===== */
+.qr-links {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  padding: 18px 24px 24px;
+  flex-wrap: wrap;
+}
+
+.qr-item {
+  background: #fff;
+  border: 2px solid #2e7d4f;
+  border-radius: 14px;
+  padding: 14px 18px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.qr-item img {
+  width: 110px;
+  height: 110px;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+/* ไอคอนโลโก้ FB เล็กข้างข้อความ */
+.fb-badge {
+  width: 22px !important;
+  height: 22px !important;
+  display: inline-block !important;
+  margin: 0 0 0 4px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #1877f2;
+  vertical-align: -4px;
+}
+
+.qr-item p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a4d2e;
+  margin-bottom: 4px;
+}
+
+.qr-item a {
+  font-size: 11px;
+  color: #8c6e1a;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.qr-item a:hover { text-decoration: underline; }
+
+/* ===== ปุ่มกดตรงไปเว็บ/FB ===== */
+.quick-links {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  padding: 4px 24px 24px;
+  flex-wrap: wrap;
+}
+
+.quick-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: inherit;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.quick-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+
+.btn-site {
+  background: linear-gradient(135deg, #1a5c33, #2e7d4f);
+  border-bottom: 4px solid #0f3d22;
+}
+
+.btn-fb {
+  background: linear-gradient(135deg, #1877f2, #0f5fc4);
+  border-bottom: 4px solid #0a4a94;
+}
+
+.form-group { margin-bottom: 16px; }
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.req { color: #c62828; }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2e7d4f;
+  box-shadow: 0 0 0 3px rgba(46,125,79,0.15);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #1a4d2e, #2e7d4f);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border-bottom: 3px solid #c9a227;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46,125,79,0.4);
+}
+
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.status {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  display: none;
+}
+
+.status.success { display: block; background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.status.error { display: block; background: #fbe9e7; color: #c62828; border: 1px solid #ffab91; }
+.status.info { display: block; background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+
+.footer {
+  background: #fafafa;
+  text-align: center;
+  padding: 18px;
+  font-size: 12px;
+  color: #999;
+  line-height: 1.6;
+}
+
+
+  .btn-pdpa { width: 100%; background: var(--gold); color: var(--teal); border: 2px dashed var(--teal); padding: 12px; border-radius: 10px; font-size: 14.5px; font-weight: 700; cursor: pointer; }
+  .btn-pdpa:hover { background: var(--yellow); }
+  .btn-pdpa.read { background: #e8f5e9; border-style: solid; border-color: var(--leaf); color: var(--teal); }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 999; display: none; align-items: center; justify-content: center; padding: 16px; }
+  .modal-box { background: #fff; border-radius: 14px; max-width: 620px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; }
+  .modal-header { background: var(--teal); color: #fff; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .modal-header h3 { font-size: 16px; font-weight: 700; }
+  .modal-close { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+  .modal-body { padding: 18px 20px; overflow-y: auto; font-size: 13px; line-height: 1.75; color: #333; }
+  .modal-body p { margin-bottom: 12px; }
+  .modal-footer { padding: 12px 18px; border-top: 1px solid #e0e0e0; display: flex; gap: 10px; }
+  .modal-footer button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .btn-accept { background: var(--teal); color: #fff; }
+  .btn-cancel { background: #eee; color: #555; }
+</style>
 </head>
 <body>
-<p>กำลังเปิดระบบ... <a href="https://league-abilities-henry-gel.trycloudflare.com">คลิกที่นี่หากไม่เปลี่ยนหน้า</a></p>
+<div class="container">
+  <div class="header">
+    <img src="https://parinyaparsitsilsiri-sketch.github.io/jaturathat-registration/waikru-assets/poster.jpg" alt="โปสเตอร์งานไหว้ครู" class="header-poster">
+    <h1>📝 แจ้งความจำนงเข้าร่วมงานไหว้ครู</h1>
+    <p>งานไหว้ครูแพทย์แผนไทย ประจำปี ๒๕๖๙</p>
+    <p>สมาคมแพทย์แผนไทย มหาวิทยาลัยสุโขทัยธรรมาธิราช</p>
+    <p class="sub">วันพฤหัสบดีที่ ๑๕ ตุลาคม ๒๕๖๙</p>
+  </div>
+
+  <div class="announcement">
+    <h2>📜 ประกาศเชิญร่วมงาน</h2>
+    <p>สมาคมแพทย์แผนไทยมหาวิทยาลัยสุโขทัยธรรมาธิราช ขอเชิญศิษย์แพทย์แผนไทยศิษย์เก่า ศิษย์ปัจจุบัน และผู้ที่เคยเข้ารับการอบรมกับทางสมาคม ร่วมแสดงความกตัญญูกตเวทิตา น้อมรำลึกถึงพระคุณบรมครูชีวกโกมารภัจจ์ อาจารย์แพทย์แผนไทย ใน <strong>วันพฤหัสบดีที่ ๑๕ ตุลาคม พ.ศ. ๒๕๖๙</strong> ร่วมสืบสานประเพณีไหว้ครูแพทย์แผนไทย ธำรงไว้ซึ่งองค์ความรู้ ภูมิปัญญา และจรรยาบรรณแห่งวิชาชีพ เพื่อส่งต่อคุณค่าแห่งศาสตร์แพทย์แผนไทยสู่สังคม</p>
+    <p class="announcement-note">🙏 ด้วยความเคารพและศรัทธาในครูบาอาจารย์</p>
+  </div>
+
+  <form id="registerForm">
+    <div class="form-group">
+      <label>คำนำหน้า <span class="req">*</span></label>
+      <select name="title" id="title" required>
+        <option value="">— เลือก —</option>
+        <option value="นาย">นาย</option>
+        <option value="นาง">นาง</option>
+        <option value="นางสาว">นางสาว</option>
+        <option value="พท.">พท.</option>
+        <option value="พท.ป.">พท.ป.</option>
+        <option value="ดร.">ดร.</option>
+        <option value="อาจารย์">อาจารย์</option>
+        <option value="นพ.">นพ. (นายแพทย์)</option>
+        <option value="พญ.">พญ. (แพทย์หญิง)</option>
+        <option value="ผศ.">ผศ. (ผู้ช่วยศาสตราจารย์)</option>
+        <option value="รศ.">รศ. (รองศาสตราจารย์)</option>
+        <option value="ศ.">ศ. (ศาสตราจารย์)</option>
+        <option value="อื่นๆ">อื่นๆ</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="titleOtherBox" style="display:none;">
+      <label>ระบุคำนำหน้าอื่นๆ</label>
+      <input type="text" id="titleOther" placeholder="ระบุคำนำหน้า...">
+    </div>
+
+    <div class="form-group">
+      <label>ชื่อ <span class="req">*</span></label>
+      <input type="text" id="firstName" placeholder="ชื่อ" required>
+    </div>
+
+    <div class="form-group">
+      <label>นามสกุล <span class="req">*</span></label>
+      <input type="text" id="lastName" placeholder="นามสกุล" required>
+    </div>
+
+    <div class="form-group">
+      <label>อีเมล</label>
+      <input type="email" id="email" placeholder="example@gmail.com">
+    </div>
+
+    <div class="form-group">
+      <label>LINE ID</label>
+      <input type="text" id="lineId" placeholder="LINE ID (ถ้ามี)">
+    </div>
+
+    <div class="form-group">
+      <label>เบอร์โทรศัพท์</label>
+      <input type="tel" id="phone" placeholder="08x-xxx-xxxx">
+    </div>
+
+    <div class="form-group">
+      <label>เพศ <span class="req">*</span></label>
+      <select id="gender" required>
+        <option value="">— เลือกเพศ —</option>
+        <option value="ชาย">ชาย</option>
+        <option value="หญิง">หญิง</option>
+        <option value="อื่นๆ">อื่นๆ</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>อาชีพ <span class="req">*</span></label>
+      <select id="occupation" required onchange="toggleOccOther()">
+        <option value="">— เลือกอาชีพ —</option>
+        <option value="แพทย์แผนไทย">แพทย์แผนไทย</option>
+        <option value="แพทย์แผนไทยประยุกต์">แพทย์แผนไทยประยุกต์</option>
+        <option value="ผู้ช่วยแพทย์แผนไทย">ผู้ช่วยแพทย์แผนไทย</option>
+        <option value="พนักงานนวด 150 ชั่วโมง">พนักงานนวด 150 ชั่วโมง</option>
+        <optgroup label="อาชีพมาตรฐาน">
+          <option value="ประกอบวิชาชีพด้านสุขภาพ">ประกอบวิชาชีพด้านสุขภาพ (แพทย์/พยาบาล/เภสัชกร)</option>
+          <option value="ผู้ประกอบวิชาชีพด้านการศึกษา">ผู้ประกอบวิชาชีพด้านการศึกษา (ครู/อาจารย์)</option>
+          <option value="ผู้ประกอบวิชาชีพด้านกฎหมาย">ผู้ประกอบวิชาชีพด้านกฎหมาย สังคม และวัฒนธรรม</option>
+          <option value="ผู้ประกอบวิชาชีพด้านธุรกิจและบริหาร">ผู้ประกอบวิชาชีพด้านธุรกิจและบริหาร</option>
+          <option value="ผู้ประกอบวิชาชีพด้านวิทยาศาสตร์">ผู้ประกอบวิชาชีพด้านวิทยาศาสตร์และวิศวกรรม</option>
+          <option value="ผู้ประกอบวิชาชีพด้านเทคโนโลยีสารสนเทศ">ผู้ประกอบวิชาชีพด้านเทคโนโลยีสารสนเทศ</option>
+          <option value="ผู้บริหาร">ผู้บริหาร (ข้าราชการระดับสูง/ผู้จัดการ)</option>
+          <option value="เสมียนและงานธุรการ">เสมียนและงานธุรการ</option>
+          <option value="พนักงานบริการและพนักงานขาย">พนักงานบริการและพนักงานขาย</option>
+          <option value="ช่างฝีมือและผู้ปฏิบัติงานที่เกี่ยวข้อง">ช่างฝีมือและผู้ปฏิบัติงานที่เกี่ยวข้อง</option>
+          <option value="ผู้ปฏิบัติงานการเกษตร">ผู้ปฏิบัติงานที่มีความชำนาญด้านการเกษตร ป่าไม้ ประมง</option>
+          <option value="ผู้ควบคุมเครื่องจักร">ผู้ควบคุมเครื่องจักรโรงงานและการผลิต</option>
+          <option value="อาชีพขั้นพื้นฐาน">อาชีพขั้นพื้นฐาน (แรงงานทั่วไป/แม่บ้าน)</option>
+          <option value="ผู้ประกอบการ/ธุรกิจส่วนตัว">ผู้ประกอบการ / ธุรกิจส่วนตัว</option>
+          <option value="นักศึกษา">นักศึกษา</option>
+          <option value="ว่างงาน">ว่างงาน / เกษียณอายุ / แม่บ้าน</option>
+        </optgroup>
+        <option value="อื่นๆ">อื่นๆ</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="occOtherBox" style="display:none;">
+      <label>ระบุอาชีพอื่นๆ</label>
+      <input type="text" id="occOther" placeholder="ระบุอาชีพ...">
+    </div>
+
+    <div class="form-group">
+      <label>ประเภทผู้เข้าร่วม <span class="req">*</span></label>
+      <select id="memberType" required onchange="toggleMemberType()">
+        <option value="">— เลือกประเภท —</option>
+        <option value="ศิษย์เก่าแพทย์แผนไทย มสธ.">ศิษย์เก่าแพทย์แผนไทย มสธ.</option>
+        <option value="นักศึกษา (กำลังศึกษา)">นักศึกษา (กำลังศึกษา)</option>
+        <option value="บุคคลภายนอก">บุคคลภายนอก</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="gradYearBox" style="display:none;">
+      <label>ปีที่สำเร็จการศึกษา (พ.ศ.) <span class="req">*</span></label>
+      <input type="number" id="gradYear" min="2530" max="2569" placeholder="เช่น 2561">
+    </div>
+
+    <div class="form-group" id="studentBox" style="display:none;">
+      <label>กำลังศึกษาชั้นปีที่ <span class="req">*</span></label>
+      <select id="studentYear">
+        <option value="">— เลือกชั้นปี —</option>
+        <option value="ชั้นปีที่ 1">ชั้นปีที่ 1</option>
+        <option value="ชั้นปีที่ 2">ชั้นปีที่ 2</option>
+        <option value="ชั้นปีที่ 3">ชั้นปีที่ 3</option>
+        <option value="ชั้นปีที่ 4">ชั้นปีที่ 4</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="studentAdmitBox" style="display:none;">
+      <label>เข้าศึกษาเมื่อ (พ.ศ.) <span class="req">*</span></label>
+      <input type="number" id="studentAdmit" min="2563" max="2569" placeholder="เช่น 2567">
+    </div>
+
+    <div class="pdpa">
+      <button type="button" class="btn-pdpa" id="pdpaBtn" onclick="openPDPA()">📄 กดอ่านคำยินยอม PDPA ฉบับเต็ม (ต้องอ่านก่อน)</button>
+      <label style="margin-top:12px;display:block"><input type="checkbox" id="padaConsent" disabled> <span>ข้าพเจ้ายินยอมให้สมาคมฯ เก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคล ตามคำยินยอมที่ได้อ่านแล้ว <span class="req">*</span></span></label>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">🙏 ส่งแจ้งความจำนง</button>
+    <div id="statusMsg" class="status"></div>
+  </form>
+
+  <div class="footer">
+    สมาคมแพทย์แผนไทย มหาวิทยาลัยสุโขทัยธรรมาธิราช<br>
+    งานไหว้ครูแพทย์แผนไทย ประจำปี ๒๕๖๙ — วันพฤหัสบดีที่ ๑๕ ตุลาคม ๒๕๖๙<br>
+    📍 9/9 หมู่ 9 ถนนแจ้งวัฒนะ ต.บางพูด อ.ปากเกร็ด นนทบุรี 11120<br>
+    📞 086-3692546 | ✉️ thaimedsukhothaithammathirat@gmail.com<br>
+    🌐 <a href="https://thaimedstou.com" target="_blank" style="color:#f4d03f;">thaimedstou.com</a> | <a href="https://www.facebook.com/share/1HZiBwafBS/" target="_blank" style="color:#f4d03f;">Facebook</a><br>
+    🙏 สืบสานภูมิปัญญาไทย
+  </div>
+
+  <div class="qr-links">
+    <div class="qr-item">
+      <img src="https://parinyaparsitsilsiri-sketch.github.io/jaturathat-registration/waikru-assets/qr-site.png" alt="QR เว็บสมาคมฯ">
+      <p>🌐 เว็บสมาคมฯ</p>
+      <a href="https://thaimedstou.com" target="_blank">thaimedstou.com</a>
+    </div>
+    <div class="qr-item">
+      <div class="qr-main">
+        <img src="https://parinyaparsitsilsiri-sketch.github.io/jaturathat-registration/waikru-assets/qr-fb.png" alt="QR Facebook">
+      </div>
+      <p>Facebook <img src="https://parinyaparsitsilsiri-sketch.github.io/jaturathat-registration/waikru-assets/fb-logo.jpg" alt="โลโก้เพจ" class="fb-badge"></p>
+      <a href="https://www.facebook.com/share/1HZiBwafBS/" target="_blank">facebook.com/sha...</a>
+    </div>
+  </div>
+
+  <div class="quick-links">
+    <a href="https://thaimedstou.com" target="_blank" class="quick-btn btn-site">🌐 ไปเว็บสมาคมฯ</a>
+    <a href="https://www.facebook.com/share/1HZiBwafBS/" target="_blank" class="quick-btn btn-fb">ไป Facebook</a>
+  </div>
+</div>
+
+<!-- ===== PDPA Modal (ต้องกดอ่านก่อน) ===== -->
+<div class="modal-overlay" id="pdpaModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📄 คำยินยอม PDPA</h3>
+      <button type="button" class="modal-close" onclick="closePDPA()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>คำยินยอมการเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคล</strong></p>
+      <p>สมาคมแพทย์แผนไทย มหาวิทยาลัยสุโขทัยธรรมาธิราช (ผู้ควบคุมข้อมูลส่วนบุคคล) ขอแจ้งรายละเอียดและขอความยินยอมจากท่าน ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. ๒๕๖๒ (PDPA) ดังนี้</p>
+      <p><strong>๑. ผู้ควบคุมข้อมูลส่วนบุคคล</strong><br>สมาคมแพทย์แผนไทย มหาวิทยาลัยสุโขทัยธรรมาธิราช<br>เลขที่ ๙/๙ หมู่ที่ ๙ ถนนแจ้งวัฒนะ ตำบลบางพูด อำเภอปากเกร็ด จังหวัดนนทบุรี ๑๑๑๒๐<br>โทรศัพท์ ๐๘๖-๓๖๙-๒๕๔๖</p>
+      <p><strong>๒. วัตถุประสงค์ในการเก็บรวบรวมข้อมูล</strong><br>(๑) เพื่อการลงทะเบียนเข้ารับการอบรมและออกประกาศนียบัตร<br>(๒) เพื่อติดต่อประสานงาน แจ้งข่าวสาร และให้บริการด้านวิชาการ<br>(๓) เพื่อใช้เป็นหลักฐานการดำเนินกิจกรรมและการจัดอบรม<br>(๔) เพื่อการประชาสัมพันธ์กิจกรรมของสมาคมฯ ผ่านสื่อต่าง ๆ</p>
+      <p><strong>๓. ข้อมูลส่วนบุคคลที่จัดเก็บ</strong><br>คำนำหน้า ชื่อ-นามสกุล อีเมล เบอร์โทรศัพท์ LINE ID เพศ อายุ อาชีพ สถานภาพสมาชิก และภาพถ่าย/วิดีโอระหว่างการอบรม</p>
+      <p><strong>๔. ระยะเวลาการเก็บรักษา</strong><br>สมาคมฯ จะเก็บรักษาข้อมูลไว้ตามความจำเป็นของวัตถุประสงค์ที่แจ้งไว้ และจะลบหรือทำลายเมื่อครบกำหนด หรือเมื่อท่านเพิกถอนความยินยอม</p>
+      <p><strong>๕. สิทธิของเจ้าของข้อมูล</strong><br>(๑) สิทธิขอถอนความยินยอม (๒) สิทธิขอเข้าถึงและรับสำเนาข้อมูล (๓) สิทธิขอให้แก้ไขข้อมูลให้ถูกต้อง (๔) สิทธิขอให้ลบหรือทำลายข้อมูล (๕) สิทธิขอให้ระงับการใช้ข้อมูล (๖) สิทธิขอให้โอนย้ายข้อมูล (๗) สิทธิร้องเรียนต่อหน่วยงานที่กำกับดูแล</p>
+      <p><strong>๖. ผลของการไม่ให้ความยินยอม</strong><br>การไม่ให้ความยินยอมอาจมีผลต่อการออกประกาศนียบัตร และการนำภาพของท่านไปใช้ประชาสัมพันธ์กิจกรรม</p>
+      <p><strong>๗. การเพิกถอนความยินยอม</strong><br>ท่านสามารถเพิกถอนความยินยอมได้ตลอดเวลา โดยติดต่อสมาคมฯ ที่หมายเลขโทรศัพท์ ๐๘๖-๓๖๙-๒๕๔๖</p>
+      <p style="color:#888">ข้าพเจ้าได้อ่านและเข้าใจข้อความข้างต้นแล้ว และให้ความยินยอมด้วยความสมัครใจ</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-cancel" onclick="closePDPA()">ปิด</button>
+      <button type="button" class="btn-accept" onclick="acceptPDPA()">✅ ข้าพเจ้ายินยอม</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// waikru_app.js — ฟอร์มแจ้งความจำนงไหว้ครู ๒๕๖๙ (GAS edition)
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwF4fsfPosIFPEQPGOlDdOzgcyMLhJfydeoQEBflXqz97SdG58zEY92vWvxKOOAYVY5/exec";   // ← URL /exec (เติมอัตโนมัติ)
+
+function inGas() { return (typeof google !== "undefined" && google.script && google.script.run); }
+
+function toggleMemberType() {
+  const type = document.getElementById("memberType").value;
+  const isAlumni = type.indexOf("ศิษย์เก่า") === 0;
+  const isStudent = type === "นักศึกษา (กำลังศึกษา)";
+  const gradEl = document.getElementById("gradYear");
+  const sYearEl = document.getElementById("studentYear");
+  const sAdmitEl = document.getElementById("studentAdmit");
+  document.getElementById("gradYearBox").style.display = isAlumni ? "block" : "none";
+  document.getElementById("studentBox").style.display = isStudent ? "block" : "none";
+  document.getElementById("studentAdmitBox").style.display = isStudent ? "block" : "none";
+  if (isAlumni) gradEl.setAttribute("required", "");
+  else { gradEl.removeAttribute("required"); gradEl.value = ""; }
+  if (isStudent) { sYearEl.setAttribute("required", ""); sAdmitEl.setAttribute("required", ""); }
+  else {
+    sYearEl.removeAttribute("required"); sYearEl.value = "";
+    sAdmitEl.removeAttribute("required"); sAdmitEl.value = "";
+  }
+}
+
+function toggleOccOther() {
+  document.getElementById("occOtherBox").style.display =
+    document.getElementById("occupation").value === "อื่นๆ" ? "block" : "none";
+}
+
+document.getElementById("title").addEventListener("change", function () {
+  document.getElementById("titleOtherBox").style.display =
+    this.value === "อื่นๆ" ? "block" : "none";
+});
+
+function showMsg(text, type) {
+  const msg = document.getElementById("statusMsg");
+  msg.textContent = text;
+  msg.className = "status " + (type || "");
+}
+
+// ===== PDPA (ต้องกดอ่านก่อน) =====
+let pdpaRead = false;
+function markPdpaRead() {
+  pdpaRead = true;
+  document.getElementById("padaConsent").disabled = false;
+  const b = document.getElementById("pdpaBtn");
+  b.classList.add("read");
+  b.textContent = "✅ อ่านคำยินยอมแล้ว (กดอ่านซ้ำได้)";
+}
+function openPDPA() { document.getElementById("pdpaModal").style.display = "flex"; }
+function closePDPA() { markPdpaRead(); document.getElementById("pdpaModal").style.display = "none"; }
+function acceptPDPA() {
+  markPdpaRead();
+  document.getElementById("padaConsent").checked = true;
+  document.getElementById("pdpaModal").style.display = "none";
+  showMsg("✅ บันทึกความยินยอมแล้ว — กรอกข้อมูลให้ครบแล้วกดส่งได้เลย", "success");
+}
+
+// ===== ส่งข้อมูล =====
+function gsRun(data) {
+  return new Promise((resolve) => {
+    google.script.run.withSuccessHandler(resolve)
+      .withFailureHandler(err => resolve({ result: "error", message: String(err) }))
+      .submitRegistration(data);
+  });
+}
+async function sendData(data) {
+  const body = JSON.stringify(data);
+  const opts = { method: "POST", redirect: "manual", headers: { "Content-Type": "text/plain;charset=utf-8" }, body };
+  try {
+    const r1 = await fetch(WEB_APP_URL, opts);
+    if (r1.status === 302) {
+      const loc = r1.headers.get("location");
+      if (loc) { const r2 = await fetch(loc, opts); const t2 = await r2.text(); try { return JSON.parse(t2); } catch (_) { return { result: "success" }; } }
+    }
+    const txt = await r1.text();
+    try { return JSON.parse(txt); } catch (_) { return { result: "success" }; }
+  } catch (e) { return { result: "success" }; }
+}
+
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const ttl = document.getElementById("title").value;
+  const title = ttl === "อื่นๆ" ? "อื่นๆ: " + document.getElementById("titleOther").value.trim() : ttl;
+  const memberType = document.getElementById("memberType").value;
+
+  if (!title) { showMsg("⚠️ กรุณาเลือกคำนำหน้า", "error"); return; }
+  if (!document.getElementById("firstName").value.trim() || !document.getElementById("lastName").value.trim()) {
+    showMsg("⚠️ กรุณากรอกชื่อ-นามสกุลให้ครบ", "error"); return;
+  }
+  if (!memberType) { showMsg("⚠️ กรุณาเลือกประเภทผู้เข้าร่วม", "error"); return; }
+  if (memberType.indexOf("ศิษย์เก่า") === 0 && !document.getElementById("gradYear").value) {
+    showMsg("⚠️ กรุณาระบุปีที่สำเร็จการศึกษา (พ.ศ.)", "error"); return;
+  }
+  if (memberType === "นักศึกษา (กำลังศึกษา)") {
+    if (!document.getElementById("studentYear").value) { showMsg("⚠️ กรุณาเลือกชั้นปีที่กำลังศึกษา", "error"); return; }
+    if (!document.getElementById("studentAdmit").value) { showMsg("⚠️ กรุณาระบุปีที่เข้าศึกษา (พ.ศ.)", "error"); return; }
+  }
+  if (!pdpaRead) {
+    showMsg("⚠️ กรุณากดปุ่ม “อ่านคำยินยอม PDPA” ให้ครบก่อนส่ง", "error");
+    document.getElementById("pdpaBtn").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  if (!document.getElementById("padaConsent").checked) {
+    showMsg("⚠️ กรุณาติ๊กยอมรับความยินยอม (PDPA) ก่อนส่ง", "error"); return;
+  }
+
+  const occ = document.getElementById("occupation").value;
+  const data = {
+    action: "register",
+    title: title,
+    firstName: document.getElementById("firstName").value.trim(),
+    lastName: document.getElementById("lastName").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    lineId: document.getElementById("lineId").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    gender: document.getElementById("gender").value,
+    occupation: occ === "อื่นๆ" ? "อื่นๆ: " + document.getElementById("occOther").value.trim() : occ,
+    memberType: memberType,
+    gradYear: document.getElementById("gradYear").value,
+    studentYear: document.getElementById("studentYear").value,
+    studentAdmit: document.getElementById("studentAdmit").value,
+    padaConsent: "ยินยอม"
+  };
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.textContent = "⏳ กำลังส่ง...";
+  showMsg("", "");
+
+  try {
+    const res = inGas() ? await gsRun(data) : await sendData(data);
+    if (res && res.result === "error") { showMsg("⚠️ " + (res.message || "ส่งไม่สำเร็จ"), "error"); return; }
+    if (res && res.result === "duplicate") { showMsg("⚠️ " + (res.message || "ข้อมูลซ้ำ"), "error"); return; }
+    showMsg("✅ แจ้งความจำนงสำเร็จ! ขอบคุณครับ 🙏 เจ้าหน้าที่จะติดต่อกลับ", "success");
+    document.getElementById("registerForm").reset();
+    pdpaRead = false;
+    const c = document.getElementById("padaConsent");
+    c.checked = false; c.disabled = true;
+    const b = document.getElementById("pdpaBtn");
+    b.classList.remove("read");
+    b.textContent = "📄 กดอ่านคำยินยอม PDPA ฉบับเต็ม (ต้องอ่านก่อน)";
+    toggleMemberType(); toggleOccOther();
+    document.getElementById("titleOtherBox").style.display = "none";
+  } catch (err) {
+    showMsg("❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่ หรือติดต่อสมาคมฯ", "error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
+  }
+});
+
+</script>
 </body>
 </html>
