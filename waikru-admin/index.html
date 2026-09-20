@@ -3,13 +3,509 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>กำลังเข้าหลังบ้าน…</title>
-<meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbwF4fsfPosIFPEQPGOlDdOzgcyMLhJfydeoQEBflXqz97SdG58zEY92vWvxKOOAYVY5/exec?page=admin">
-<script>window.location.replace("https://script.google.com/macros/s/AKfycbwF4fsfPosIFPEQPGOlDdOzgcyMLhJfydeoQEBflXqz97SdG58zEY92vWvxKOOAYVY5/exec?page=admin");</script>
-<style>body{font-family:"Sarabun",sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#1a4d2e;color:#fff}div{text-align:center}a{color:#f4d03f}</style>
+<title>หลังบ้าน — ผู้แจ้งความจำนงไหว้ครู 2569</title>
+<style>
+/* style.css — ระบบแจ้งความจำนงพิธีไหว้ครู 2569 สมาคมแพทย์แผนไทย มสธ.
+   ธีม: เขียว-ทอง-ขาว */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
+  background: linear-gradient(135deg, #1a4d2e 0%, #2e7d4f 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #eee;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  background: #fff;
+  color: #333;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.header {
+  background: linear-gradient(135deg, #1a4d2e 0%, #2e7d4f 100%);
+  color: #fff;
+  text-align: center;
+  padding: 28px 20px;
+  border-bottom: 4px solid #c9a227;
+}
+
+.header h1 { font-size: 22px; margin-bottom: 6px; }
+.header p { font-size: 15px; opacity: 0.95; }
+.header .sub { font-size: 14px; margin-top: 4px; color: #f4d03f; font-weight: 700; }
+
+.header-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.45));
+  animation: float-logo 3s ease-in-out infinite;
+}
+
+/* โปสเตอร์หัวฟอร์ม */
+.header-poster {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  border: 3px solid #f4d03f;
+}
+
+/* โลโก้ลอยขึ้นลงเบาๆ */
+@keyframes float-logo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+form { padding: 24px 28px 10px; }
+
+/* ===== กล่องประกาศ ===== */
+.announcement {
+  background: #f0faf3;
+  border-left: 5px solid #2e7d4f;
+  border-right: 5px solid #c9a227;
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 18px 24px 0;
+}
+
+.announcement h2 {
+  font-size: 16px;
+  color: #1a4d2e;
+  margin-bottom: 10px;
+}
+
+.announcement p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+}
+
+.announcement strong { color: #1a4d2e; }
+
+.announcement-note {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #8c6e1a !important;
+}
+
+/* ===== QR ลิงก์ท้ายฟอร์ม ===== */
+.qr-links {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  padding: 18px 24px 24px;
+  flex-wrap: wrap;
+}
+
+.qr-item {
+  background: #fff;
+  border: 2px solid #2e7d4f;
+  border-radius: 14px;
+  padding: 14px 18px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.qr-item img {
+  width: 110px;
+  height: 110px;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+/* ไอคอนโลโก้ FB เล็กข้างข้อความ */
+.fb-badge {
+  width: 22px !important;
+  height: 22px !important;
+  display: inline-block !important;
+  margin: 0 0 0 4px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #1877f2;
+  vertical-align: -4px;
+}
+
+.qr-item p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a4d2e;
+  margin-bottom: 4px;
+}
+
+.qr-item a {
+  font-size: 11px;
+  color: #8c6e1a;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.qr-item a:hover { text-decoration: underline; }
+
+/* ===== ปุ่มกดตรงไปเว็บ/FB ===== */
+.quick-links {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  padding: 4px 24px 24px;
+  flex-wrap: wrap;
+}
+
+.quick-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: inherit;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.quick-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+
+.btn-site {
+  background: linear-gradient(135deg, #1a5c33, #2e7d4f);
+  border-bottom: 4px solid #0f3d22;
+}
+
+.btn-fb {
+  background: linear-gradient(135deg, #1877f2, #0f5fc4);
+  border-bottom: 4px solid #0a4a94;
+}
+
+.form-group { margin-bottom: 16px; }
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.req { color: #c62828; }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2e7d4f;
+  box-shadow: 0 0 0 3px rgba(46,125,79,0.15);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #1a4d2e, #2e7d4f);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border-bottom: 3px solid #c9a227;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46,125,79,0.4);
+}
+
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.status {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  display: none;
+}
+
+.status.success { display: block; background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.status.error { display: block; background: #fbe9e7; color: #c62828; border: 1px solid #ffab91; }
+.status.info { display: block; background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+
+.footer {
+  background: #fafafa;
+  text-align: center;
+  padding: 18px;
+  font-size: 12px;
+  color: #999;
+  line-height: 1.6;
+}
+</style>
+<style>
+  body { background: linear-gradient(135deg, #1a4d2e 0%, #2e7d4f 100%); }
+  .container { max-width: 1100px; }
+  .admin-panel { padding: 24px 28px 30px; }
+  .admin-panel h2 { font-size: 20px; color: #333; margin-bottom: 4px; }
+  .admin-panel .sub { font-size: 13px; color: #999; margin-bottom: 16px; }
+  .admin-actions { margin-bottom: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .admin-actions button {
+    padding: 10px 18px; background: #1a4d2e; color: #fff; border: none;
+    border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer;
+    border-bottom: 3px solid #c9a227;
+  }
+  .admin-actions button:hover { background: #2e7d4f; }
+  #regTable { width: 100%; border-collapse: collapse; font-size: 13px; }
+  #regTable th { background: #f5f5f5; padding: 9px 8px; text-align: left; border-bottom: 2px solid #ddd; white-space: nowrap; }
+  #regTable td { padding: 8px; border-bottom: 1px solid #eee; }
+  #regTable tr:hover td { background: #f0faf3; }
+  .back-link { display: inline-block; margin: 16px 0 0; color: #1a4d2e; text-decoration: none; font-size: 14px; font-weight: 600; }
+  .stats-bar { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .stat-card { background: #f0faf3; border: 1.5px solid #2e7d4f; border-radius: 10px; padding: 12px 18px; text-align: center; min-width: 140px; }
+  .stat-card .num { font-size: 24px; font-weight: 800; color: #1a4d2e; }
+  .stat-card .lbl { font-size: 12px; color: #666; }
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+  .dash-card { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 16px; }
+  .dash-card h4 { font-size: 14px; color: #555; margin-bottom: 12px; }
+  .dash-wide { grid-column: 1 / -1; }
+  .chart { display: flex; flex-direction: column; gap: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .bar-row .bar-label { width: 200px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-row .bar-track { flex: 1; background: #eee; border-radius: 4px; height: 18px; overflow: hidden; }
+  .bar-row .bar-fill { background: linear-gradient(90deg, #1a4d2e, #c9a227); height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .bar-row .bar-val { width: 34px; text-align: right; font-weight: 700; color: #1a4d2e; }
+  .badge-alumni { background: #e8f5e9; color: #1a4d2e; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  .badge-external { background: #fff8e1; color: #8c6e1a; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+  @media (max-width: 700px) { .dash-grid { grid-template-columns: 1fr; } .bar-row .bar-label { width: 120px; } }
+</style>
 </head>
-<body><div>
-<p style="font-size:34px">🔐</p>
-<p>กำลังเข้าสู่หลังบ้านไหว้ครู…</p>
-<p><a href="https://script.google.com/macros/s/AKfycbwF4fsfPosIFPEQPGOlDdOzgcyMLhJfydeoQEBflXqz97SdG58zEY92vWvxKOOAYVY5/exec?page=admin">คลิกที่นี่ถ้าไม่ไปอัตโนมัติ</a></p>
-</div></body></html>
+<body>
+<div class="container">
+  <div class="header">
+    <img src="https://parinyaparsitsilsiri-sketch.github.io/jaturathat-registration/waikru-assets/logo.png" alt="โลโก้สมาคมฯ" class="header-logo">
+    <h1>🔐 หลังบ้านผู้แจ้งความจำนง</h1>
+    <p>งานไหว้ครูแพทย์แผนไทย ๒๕๖๙ — วันพฤหัสบดีที่ ๑๕ ตุลาคม ๒๕๖๙</p>
+  </div>
+
+  <div class="admin-panel">
+    <h2>📊 Dashboard</h2>
+    <p class="sub">สรุปภาพรวมผู้แจ้งความจำนง</p>
+    <div class="stats-bar" id="statsBar"></div>
+
+    <div class="dash-grid">
+      <div class="dash-card">
+        <h4>🎓 ประเภทผู้เข้าร่วม</h4>
+        <div id="memberChart" class="chart"></div>
+      </div>
+      <div class="dash-card">
+        <h4>⚥ จำแนกตามเพศ</h4>
+        <div id="genderChart" class="chart"></div>
+      </div>
+      <div class="dash-card">
+        <h4>🏫 ปีที่จบ (ศิษย์เก่า)</h4>
+        <div id="gradChart" class="chart"></div>
+      </div>
+      <div class="dash-card">
+        <h4>📅 ลงทะเบียนรายวัน</h4>
+        <div id="dailyChart" class="chart"></div>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:2px solid #eee;margin:20px 0;">
+
+    <h2>📋 รายชื่อผู้แจ้งความจำนง</h2>
+    <p class="sub">เฉพาะผู้ดูแลระบบเท่านั้น</p>
+
+    <div class="admin-actions">
+      <button onclick="unlockList()">🔄 รีเฟรชรายชื่อ</button>
+      <button onclick="exportCSV()">⬇️ ดาวน์โหลด CSV/Excel</button>
+    </div>
+    <div id="listMsg" class="status"></div>
+
+    <div id="pinArea" style="text-align:center;padding:22px 10px;background:#f0faf3;border-radius:12px;margin-bottom:14px">
+  <div style="font-size:13px;color:#666;margin-bottom:10px">ใส่รหัสเพื่อดูรายชื่อ/ข้อมูลติดต่อผู้แจ้งความจำนง</div>
+  <input id="pinInput" type="password" inputmode="numeric" placeholder="••••" maxlength="8" style="font-size:20px;letter-spacing:6px;text-align:center;padding:12px;width:180px;border:2px solid #2e7d4f;border-radius:10px">
+  <br><button onclick="unlockList()" style="margin-top:12px;background:#1a4d2e;color:#fff;border:none;padding:12px 26px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer">🔓 เปิดดูรายชื่อ</button>
+</div>
+<div id="ordersArea" style="display:none">
+  <input id="search" placeholder="🔍 ค้นหา ชื่อ / เบอร์" oninput="renderTable()" style="width:100%;padding:10px;border:1.5px solid #c8d6cf;border-radius:8px;margin-bottom:10px;font-size:14px">
+<table id="regTable">
+      <thead>
+        <tr>
+          <th>#</th><th>คำนำหน้า</th><th>ชื่อ-นามสกุล</th><th>ประเภท</th><th>ปีที่จบ</th><th>ชั้นปี</th>
+          <th>เพศ</th><th>เบอร์</th><th>อีเมล</th><th>LINE</th><th>เวลาลงทะเบียน</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+
+    <a href="/" class="back-link">← กลับหน้าแจ้งความจำนง</a>
+  </div>
+</div>
+
+<script>
+// waikru_admin_app.js — หลังบ้านไหว้ครู ๒๕๖๙ (GAS edition)
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwF4fsfPosIFPEQPGOlDdOzgcyMLhJfydeoQEBflXqz97SdG58zEY92vWvxKOOAYVY5/exec";
+let orders = [];
+
+function inGas() { return (typeof google !== "undefined" && google.script && google.script.run); }
+
+function showMsg(text, type) {
+  const msg = document.getElementById("listMsg");
+  msg.textContent = text;
+  msg.className = "status " + (type || "");
+}
+
+function gsRun(fn, arg) {
+  return new Promise((resolve) => {
+    const runner = google.script.run
+      .withSuccessHandler(resolve)
+      .withFailureHandler(e => resolve({ result: "error", message: String(e) }));
+    if (arg !== undefined) runner[fn](arg); else runner[fn]();
+  });
+}
+async function apiFetch(params) {
+  const url = WEB_APP_URL + "?" + new URLSearchParams(params).toString();
+  const r = await fetch(url, { redirect: "follow" });
+  return await r.json();
+}
+async function api(params) {
+  if (inGas()) {
+    if (params.action === "stats") return await gsRun("getStats_");
+    if (params.action === "registrants") return await gsRun("getRegistrants_", params.pin);
+  }
+  return await apiFetch(params);
+}
+
+function renderBarChart(elId, data, labelKey, valueKey) {
+  const el = document.getElementById(elId);
+  if (!data || data.length === 0) {
+    el.innerHTML = '<p style="color:#999;font-size:13px;">ยังไม่มีข้อมูล</p>';
+    return;
+  }
+  const max = Math.max.apply(null, data.map(d => d[valueKey]));
+  el.innerHTML = data.map(d =>
+    '<div class="bar-row">' +
+      '<span class="bar-label" title="' + (d[labelKey] || "") + '">' + (d[labelKey] || "-") + '</span>' +
+      '<div class="bar-track"><div class="bar-fill" style="width:' + Math.max((d[valueKey] / max) * 100, 4) + '%"></div></div>' +
+      '<span class="bar-val">' + d[valueKey] + '</span>' +
+    '</div>'
+  ).join("");
+}
+
+// วันที่ → ไทยสั้น ("2026-09-20 22:04:11" → "20 ก.ย. 69 22:04")
+const TH_MON = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+function fmtDay(s) {
+  const p = String(s).slice(0, 10).split("-");
+  if (p.length !== 3) return String(s);
+  return parseInt(p[2], 10) + " " + TH_MON[parseInt(p[1], 10) - 1] + " " + String(parseInt(p[0], 10) + 543).slice(-2);
+}
+function fmtDT(s) {
+  const t = String(s).slice(11, 16);
+  return fmtDay(s) + (t ? " " + t : "");
+}
+
+async function loadDashboard() {
+  try {
+    const s = await api({ action: "stats" });
+    if (!s || s.result !== "ok") return;
+    document.getElementById("statsBar").innerHTML =
+      '<div class="stat-card"><div class="num">' + s.total + '</div><div class="lbl">ผู้แจ้งความจำนง</div></div>' +
+      '<div class="stat-card"><div class="num">' + s.alumni + '</div><div class="lbl">ศิษย์เก่า มสธ.</div></div>' +
+      '<div class="stat-card"><div class="num">' + (s.student || 0) + '</div><div class="lbl">นักศึกษา</div></div>' +
+      '<div class="stat-card"><div class="num">' + s.external + '</div><div class="lbl">บุคคลภายนอก</div></div>' +
+      '<div class="stat-card"><div class="num">' + s.today + '</div><div class="lbl">วันนี้</div></div>';
+
+    renderBarChart("memberChart", s.memberTypes, "k", "c");
+    renderBarChart("genderChart", s.genders, "k", "c");
+    renderBarChart("gradChart", s.gradYears, "k", "c");
+    renderBarChart("dailyChart", (s.daily || []).map(d => ({ k: fmtDay(d.k), c: d.c })), "k", "c");
+    document.getElementById("listMsg").textContent = "";
+  } catch (e) {
+    console.error("dashboard:", e);
+  }
+}
+
+async function unlockList() {
+  const pin = document.getElementById("pinInput").value.trim();
+  if (!pin) { showMsg("กรุณาใส่รหัส", "error"); return; }
+  showMsg("⏳ กำลังโหลด...", "info");
+  try {
+    const r = await api({ action: "registrants", pin: pin });
+    if (!r || r.result !== "ok") { showMsg("❌ " + ((r && r.message) || "รหัสไม่ถูกต้อง"), "error"); return; }
+    orders = r.data || [];
+    sessionStorage.setItem("waikruPin", pin);
+    document.getElementById("pinArea").style.display = "none";
+    document.getElementById("ordersArea").style.display = "block";
+    renderTable();
+  } catch (e) {
+    showMsg("❌ เชื่อมต่อไม่สำเร็จ", "error");
+  }
+}
+
+function renderTable() {
+  const q = (document.getElementById("search") ? document.getElementById("search").value : "").toLowerCase();
+  const rows = orders.filter(r => !q || (String(r[1]) + String(r[2]) + String(r[3]) + String(r[6])).toLowerCase().indexOf(q) >= 0);
+  let h = "<thead><tr><th>#</th><th>คำนำหน้า</th><th>ชื่อ-นามสกุล</th><th>ประเภท</th><th>ปีที่จบ</th><th>ชั้นปี</th><th>เพศ</th><th>เบอร์</th><th>อีเมล</th><th>LINE</th><th>เวลา</th></tr></thead><tbody>";
+  rows.forEach((r, i) => {
+    const mt = String(r[9] || "");
+    const cls = mt.indexOf("ศิษย์เก่า") === 0 ? "badge-alumni" : "badge-external";
+    h += "<tr><td>" + (i + 1) + "</td><td>" + (r[1] || "-") + "</td><td>" + (r[2] || "") + " " + (r[3] || "") + "</td>" +
+      '<td><span class="' + cls + '">' + mt + "</span></td><td>" + (r[10] || "-") + "</td><td>" + (r[11] || "-") + "</td>" +
+      "<td>" + (r[7] || "-") + "</td><td>" + (r[6] || "-") + "</td><td>" + (r[4] || "-") + "</td><td>" + (r[5] || "-") + "</td><td>" + fmtDT(r[0]) + "</td></tr>";
+  });
+  h += "</tbody>";
+  document.querySelector("#regTable").innerHTML = h;
+  showMsg("✅ พบทั้งหมด " + rows.length + " / " + orders.length + " คน", "success");
+}
+
+function exportCSV() {
+  if (!orders.length) { showMsg("ยังไม่มีข้อมูลให้ export", "error"); return; }
+  const head = ["ลำดับ", "วันที่-เวลา", "คำนำหน้า", "ชื่อ", "นามสกุล", "อีเมล", "LINE ID", "เบอร์โทร", "เพศ", "อาชีพ", "ประเภทผู้เข้าร่วม", "ปีที่จบ (พ.ศ.)", "ชั้นปีที่ศึกษา", "ปีเข้าศึกษา (พ.ศ.)"];
+  const lines = [head.join(",")];
+  orders.forEach((r, i) => {
+    const row = [i + 1, r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12]];
+    lines.push(row.map(v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"').join(","));
+  });
+  const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "ไหว้ครู2569_ผู้แจ้งความจำนง_" + new Date().toISOString().slice(0, 10) + ".csv";
+  a.click();
+}
+
+window.addEventListener("load", () => {
+  loadDashboard();
+  const saved = sessionStorage.getItem("waikruPin");
+  if (saved) { document.getElementById("pinInput").value = saved; unlockList(); }
+});
+
+</script>
+</body>
+</html>
