@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
-  background: linear-gradient(135deg, #1a1a1f 0%, #2d2d35 100%);
+  background: linear-gradient(135deg, #075B36 0%, #0a3d20 55%, #06442a 100%);
   min-height: 100vh;
   padding: 20px;
   color: #eee;
@@ -76,7 +76,7 @@ form { padding: 24px 28px 10px; }
 .submit-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #8c6e1a, #c9a227);
+  background: linear-gradient(135deg, #06442a, #075B36);
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -303,3 +303,23 @@ form { padding: 24px 28px 10px; }
   color: #999;
   line-height: 1.6;
 }
+
+/* ===== ธีม CI อาศรมศรีมงคล - การแพทย์แผนไทย ===== */
+body {
+  background: linear-gradient(135deg, #075B36 0%, #0a3d20 55%, #06442a 100%);
+  color: #F3E8C8;
+}
+body .container { max-width: 560px; }
+.header { border-bottom: 2px solid rgba(201,162,39,.35); }
+.status.success { background: rgba(47,143,69,.18); border-color: #2F8F45; color: #b8f0c6; }
+.status.error { background: rgba(229,37,42,.16); border-color: #E5252A; color: #ffc9c9; }
+input, select, textarea {
+  background: #fffdf5;
+  border-color: #C9A227;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: #2F8F45;
+  box-shadow: 0 0 0 3px rgba(47,143,69,.22);
+}
+.submit-btn { background: linear-gradient(135deg, #06442a, #075B36); color: #F3E8C8; }
+.submit-btn:hover { box-shadow: 0 6px 20px rgba(47,143,69,.4); }
