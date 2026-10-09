@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>หลังบ้าน — รายชื่อผู้ลงทะเบียนจตุรธาตุ</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background: #1a1a1f; }
+  .container { max-width: 1100px; }
+  .admin-panel { padding: 24px 28px 30px; }
+  .admin-panel h2 { font-size: 20px; color: #333; margin-bottom: 4px; }
+  .admin-panel .sub { font-size: 13px; color: #999; margin-bottom: 16px; }
+  .admin-actions { margin-bottom: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .admin-actions button {
+    padding: 10px 18px; background: #8c6e1a; color: #fff; border: none;
+    border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer;
+  }
+  .admin-actions button:hover { background: #c9a227; }
+  .admin-actions .danger { background: #c62828; }
+  .admin-actions .danger:hover { background: #e53935; }
+  #regTable { width: 100%; border-collapse: collapse; font-size: 13px; }
+  #regTable th { background: #f5f5f5; padding: 9px 8px; text-align: left; border-bottom: 2px solid #ddd; white-space: nowrap; }
+  #regTable td { padding: 8px; border-bottom: 1px solid #eee; }
+  #regTable tr:hover td { background: #fffdf5; }
+  .back-link { display: inline-block; margin: 16px 0 0; color: #8c6e1a; text-decoration: none; font-size: 14px; font-weight: 600; }
+  .stats-bar { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .stat-card { background: #fffdf5; border: 1.5px solid #c9a227; border-radius: 10px; padding: 12px 18px; text-align: center; min-width: 140px; }
+  .stat-card .num { font-size: 24px; font-weight: 800; color: #8c6e1a; }
+  .stat-card .lbl { font-size: 12px; color: #666; }
+
+  /* Dashboard */
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+  .dash-card {
+    background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 16px;
+  }
+  .dash-card h4 { font-size: 14px; color: #555; margin-bottom: 12px; }
+  .dash-wide { grid-column: 1 / -1; }
+  .chart { display: flex; flex-direction: column; gap: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .bar-row .bar-label { width: 200px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-row .bar-track { flex: 1; background: #eee; border-radius: 4px; height: 18px; overflow: hidden; }
+  .bar-row .bar-fill { background: linear-gradient(90deg, #8c6e1a, #c9a227); height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .bar-row .bar-val { width: 34px; text-align: right; font-weight: 700; color: #8c6e1a; }
+  @media (max-width: 700px) { .dash-grid { grid-template-columns: 1fr; } .bar-row .bar-label { width: 120px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <img src="logo.jpg" alt="โลโก้อาศรมศรีมงคล" class="header-logo">
+    <h1>🔐 หลังบ้านผู้ลงทะเบียน</h1>
+    <p>หลักสูตรจตุรธาตุ ๓๑-๑ พ.ค. ๖๙</p>
+  </div>
+
+  <div class="admin-panel">
+    <h2>📊 Dashboard</h2>
+    <p class="sub">สรุปภาพรวมผู้ลงทะเบียน</p>
+    <div class="stats-bar" id="statsBar"></div>
+
+    <div class="dash-grid">
+      <div class="dash-card">
+        <h4>👥 จำแนกตามอาชีพ</h4>
+        <div id="occChart" class="chart"></div>
+      </div>
+      <div class="dash-card">
+        <h4>⚥ จำแนกตามเพศ</h4>
+        <div id="genderChart" class="chart"></div>
+      </div>
+      <div class="dash-card">
+        <h4>🎂 กลุ่มอายุ</h4>
+        <div id="ageChart" class="chart"></div>
+      </div>
+      <div class="dash-card">
+        <h4>🏷️ จำแนกตามคำนำหน้า</h4>
+        <div id="titleChart" class="chart"></div>
+      </div>
+      <div class="dash-card dash-wide">
+        <h4>📅 จำนวนลงทะเบียนรายวัน</h4>
+        <div id="dailyChart" class="chart"></div>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:2px solid #eee;margin:20px 0;">
+
+    <h2>📋 รายชื่อผู้ลงทะเบียน</h2>
+    <p class="sub">เฉพาะผู้ดูแลระบบเท่านั้น</p>
+
+    <div class="admin-actions">
+      <button onclick="loadList()">🔄 รีเฟรชรายชื่อ</button>
+      <button onclick="exportExcel()">📊 Export Excel</button>
+    </div>
+    <div id="listMsg" class="status"></div>
+
+    <table id="regTable">
+      <thead>
+        <tr>
+          <th>#</th><th>คำนำหน้า</th><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>อายุ</th><th>อีเมล</th><th>LINE ID</th>
+          <th>อาชีพ</th><th>PDPA</th><th>เวลาลงทะเบียน</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <a href="/" class="back-link">← กลับหน้าเว็บลงทะเบียน</a>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
