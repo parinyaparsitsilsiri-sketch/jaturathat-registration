@@ -1,5 +1,5 @@
 // admin.js — หลังบ้าน: Dashboard + รายชื่อ + Export Excel
-const API = "https://pursue-uploaded-difficulty-quiz.trycloudflare.com";
+const API = "https://desire-pregnancy-shaft-riverside.trycloudflare.com";
 
 function showMsg(text, type) {
   const msg = document.getElementById("listMsg");
