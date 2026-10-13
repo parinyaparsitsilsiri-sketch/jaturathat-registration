@@ -648,6 +648,40 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
   }
 });
 
+/* ===== ปิดรับลงทะเบียนแล้ว (๑๓ ต.ค. ๖๙) ===== */
+(function () {
+  var CLOSED_HTML = [
+    '<div style="background:#075B36;color:#F3E8C8;border-radius:14px;padding:22px 18px;margin:18px 0;text-align:center;border:2px solid #C9A227">',
+    '<div style="font-size:34px;line-height:1">🔒</div>',
+    '<h2 style="margin:10px 0 6px;font-size:20px;color:#F0B414">ปิดรับลงทะเบียนแล้ว</h2>',
+    '<p style="margin:8px 0;font-size:15px;line-height:1.8">งานไหว้ครูแพทย์แผนไทย<br><strong>วันพฤหัสบดีที่ ๑๕ ตุลาคม ๒๕๖๙</strong></p>',
+    '<div style="background:rgba(243,232,200,.14);border-radius:10px;padding:14px;margin-top:14px;text-align:left;font-size:14.5px;line-height:1.85">',
+    '<strong style="color:#F0B414">🎁 สำหรับผู้ที่ลงทะเบียนไว้แล้ว</strong><br>',
+    '• ได้รับ<strong>ของที่ระลึก</strong>จากสมาคมฯ<br>',
+    '• ได้รับ<strong>อาหารว่าง</strong>ในวันงาน<br>',
+    '<span style="opacity:.85">ผู้ลงทะเบียนทั้งหมด ๙๐ ท่าน</span>',
+    '</div>',
+    '<p style="margin:14px 0 0;font-size:13.5px;opacity:.9">สอบถามเพิ่มเติม โทร. 086-369-2546</p>',
+    '</div>'
+  ].join('');
+
+  function closeForm() {
+    var form = document.getElementById('registerForm');
+    if (form) {
+      form.insertAdjacentHTML('beforebegin', CLOSED_HTML);
+      form.style.display = 'none';
+    }
+    var btn = document.getElementById('submitBtn');
+    if (btn) { btn.disabled = true; btn.textContent = '🔒 ปิดรับลงทะเบียนแล้ว'; }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', closeForm);
+  } else {
+    closeForm();
+  }
+})();
+
 </script>
 </body>
 </html>
