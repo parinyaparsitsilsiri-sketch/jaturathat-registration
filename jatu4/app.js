@@ -1,5 +1,5 @@
 // app.js — ระบบลงทะเบียนจตุรธาตุ อาศรมศรีมงคล
-const API = "https://established-gardens-mem-tue.trycloudflare.com";// relative — port 4575 // relative — เรียก server เดียวกัน
+const API = "https://specialty-stylus-pasta-consistently.trycloudflare.com";// relative — port 4575 // relative — เรียก server เดียวกัน
 
 function toggleOccOther() {
   const val = document.getElementById("occupation").value;
