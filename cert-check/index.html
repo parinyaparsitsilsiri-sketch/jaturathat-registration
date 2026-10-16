@@ -3,84 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#075B36">
 <title>ตรวจสอบประกาศนียบัตร — อาศรมศรีมงคล</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sarabun', 'Noto Sans Thai', -apple-system, sans-serif; }
   body {
-    background: #f5f1e6; min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 30px 16px;
+    background: linear-gradient(180deg, #f5f1e6 0%, #efe8d6 100%);
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: 28px 16px 40px;
   }
   .card {
     background: #fff; max-width: 480px; width: 100%;
-    border: 2px solid #d4af37; border-radius: 14px;
-    padding: 28px 24px; text-align: center;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    border: 2px solid #C9A227; border-radius: 16px;
+    padding: 26px 22px 30px; text-align: center;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.10);
   }
-  .logo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
-  h1 { font-size: 20px; color: #8b6914; margin-bottom: 4px; }
-  .sub { color: #777; font-size: 13px; margin-bottom: 20px; }
+  .logo { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid #EFE3C0; }
+  h1 { font-size: 21px; color: #075B36; margin-bottom: 4px; font-weight: 700; }
+  .sub { color: #777; font-size: 13.5px; margin-bottom: 20px; line-height: 1.5; }
+  label { display: block; text-align: left; font-size: 14px; color: #555; margin-bottom: 6px; }
   input {
-    width: 100%; padding: 13px 14px; font-size: 18px; text-align: center;
-    border: 2px solid #d4af37; border-radius: 10px; outline: none;
-    letter-spacing: 2px; margin-bottom: 12px;
+    width: 100%; padding: 14px; font-size: 19px; text-align: center;
+    border: 2px solid #C9A227; border-radius: 11px; outline: none;
+    letter-spacing: 3px; margin-bottom: 12px; -webkit-appearance: none;
   }
+  input:focus { border-color: #075B36; box-shadow: 0 0 0 3px rgba(7,91,54,0.12); }
   button {
-    width: 100%; padding: 13px; font-size: 16px; font-weight: 700;
-    background: #8b6914; color: #fff; border: none; border-radius: 10px; cursor: pointer;
+    width: 100%; padding: 15px; font-size: 17px; font-weight: 700;
+    background: #075B36; color: #fff; border: none; border-radius: 11px;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
   }
-  button:disabled { opacity: 0.5; }
-  .result { margin-top: 18px; padding: 16px; border-radius: 10px; font-size: 15px; display: none; }
-  .ok { background: #e8f5e9; border: 2px solid #43a047; color: #1b5e20; }
-  .bad { background: #fdecea; border: 2px solid #e53935; color: #b71c1c; }
-  .result .name { font-size: 18px; font-weight: 700; margin: 8px 0 4px; }
-  .loading { margin-top: 14px; color: #8b6914; display: none; }
+  button:active { transform: scale(0.985); }
+  button:disabled { opacity: 0.55; }
+  .result { margin-top: 18px; padding: 18px 16px; border-radius: 12px; font-size: 15px; display: none; text-align: left; line-height: 1.65; }
+  .ok  { background: #e8f5ee; border: 2px solid #2F8F45; color: #14512F; }
+  .bad { background: #fdecea; border: 2px solid #E5252A; color: #a01818; }
+  .result .head { font-size: 16px; font-weight: 700; text-align: center; margin-bottom: 10px; }
+  .result .name { font-size: 19px; font-weight: 700; text-align: center; margin: 8px 0 10px; color: #075B36; }
+  .result .row { display: flex; gap: 8px; padding: 3px 0; }
+  .result .k { color: #666; min-width: 72px; flex-shrink: 0; }
+  .loading { margin-top: 16px; color: #075B36; display: none; font-size: 15px; }
+  .foot { margin-top: 20px; font-size: 12.5px; color: #8a8a8a; text-align: center; line-height: 1.7; }
+  .spin { display: inline-block; width: 15px; height: 15px; border: 2.5px solid rgba(7,91,54,0.25); border-top-color: #075B36; border-radius: 50%; animation: sp 0.8s linear infinite; vertical-align: -2px; margin-right: 7px; }
+  @keyframes sp { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
   <div class="card">
     <img class="logo" src="../assets/logo.jpg" alt="โลโก้อาศรมศรีมงคล">
     <h1>ตรวจสอบประกาศนียบัตร</h1>
-    <div class="sub">อาศรมศรีมงคล — ศูนย์การเรียนรู้การแพทย์แผนไทย</div>
-    <input id="no" inputmode="numeric" maxlength="8" placeholder="กรอกเลขที่ เช่น 69070001">
+    <div class="sub">อาศรมศรีมงคล — กลุ่มงานการแพทย์แผนไทย</div>
+
+    <label for="no">เลขที่ใบประกาศนียบัตร (๘ หลัก)</label>
+    <input id="no" inputmode="numeric" maxlength="8" placeholder="เช่น 69090001" autocomplete="off">
     <button id="btn" onclick="check()">ตรวจสอบ</button>
-    <div class="loading" id="loading">⏳ กำลังตรวจสอบ...</div>
+
+    <div class="loading" id="loading"><span class="spin"></span>กำลังตรวจสอบ…</div>
     <div class="result" id="result"></div>
+
+    <div class="foot">
+      ผลการตรวจสอบอ้างอิงจากทะเบียนใบประกาศนียบัตรของอาศรมศรีมงคล<br>
+      หากพบข้อผิดพลาด โปรดติดต่อ ๐๘๖-๓๖๙-๒๕๔๖
+    </div>
   </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbxZiFRbDtpXkwnLY12N0dPXEUQAZ5KtCdxgHtbGh3T2N6m8AyGdkCekYrtojdZzTijr/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwFm5edV0bHjzmufbwqBMjefkucDTF54OjRCnrEHDJi27VW0-wobIxsjReZjLIGnSli/exec";
+
+const $ = id => document.getElementById(id);
+
+function setBusy(on) {
+  $("btn").disabled = on;
+  $("loading").style.display = on ? "block" : "none";
+}
+
+function show(kind, html) {
+  const r = $("result");
+  r.className = "result " + kind;
+  r.innerHTML = html;
+  r.style.display = "block";
+}
 
 async function check() {
-  const no = document.getElementById("no").value.trim();
-  const res = document.getElementById("result");
-  const loading = document.getElementById("loading");
-  res.style.display = "none";
-  if (!/^\d{8}$/.test(no)) {
-    res.className = "result bad"; res.style.display = "block";
-    res.innerHTML = "⚠️ กรุณากรอกเลขที่ 8 หลัก (เช่น 69070001)";
+  const no = ($("no").value || "").replace(/\D/g, "").trim();
+  $("result").style.display = "none";
+  if (no.length !== 8) {
+    show("bad", "⚠️ กรุณากรอกเลขที่ใบประกาศให้ครบ ๘ หลัก<br><span style='font-size:13px'>เช่น 69090001</span>");
     return;
   }
-  loading.style.display = "block";
+  setBusy(true);
   try {
-    const r = await fetch(API_URL + "?no=" + no);
+    const r = await fetch(API_URL + "?no=" + encodeURIComponent(no), { cache: "no-store" });
     const d = await r.json();
-    loading.style.display = "none";
+    setBusy(false);
     if (d.result === "found") {
-      res.className = "result ok"; res.style.display = "block";
-      res.innerHTML = "✅ <b>ใบประกาศนียบัตรนี้ถูกต้อง</b>" +
-        `<div class="name">${d.title} ${d.fullname}</div>` +
-        `หลักสูตร: ${d.course}<br>วันที่: ${d.date}`;
+      let h = '<div class="head">✅ ใบประกาศนียบัตรนี้ถูกต้อง</div>';
+      h += '<div class="name">' + esc((d.title || "") + " " + (d.fullname || "")) + "</div>";
+      if (d.course) h += '<div class="row"><span class="k">หลักสูตร</span><span>' + esc(d.course) + "</span></div>";
+      if (d.date)   h += '<div class="row"><span class="k">วันที่อบรม</span><span>' + esc(d.date) + "</span></div>";
+      if (d.place)  h += '<div class="row"><span class="k">สถานที่</span><span>' + esc(d.place) + "</span></div>";
+      h += '<div class="row"><span class="k">เลขที่</span><span>' + esc(d.no || no) + "</span></div>";
+      show("ok", h);
     } else {
-      res.className = "result bad"; res.style.display = "block";
-      res.innerHTML = "❌ <b>ไม่พบหมายเลขนี้ในระบบ</b><br>โปรดตรวจสอบเลขที่อีกครั้ง หรือติดต่ออาศรมศรีมงคล";
+      show("bad", "❌ ไม่พบเลขที่นี้ในระบบ<br><span style='font-size:13.5px'>โปรดตรวจสอบเลขที่อีกครั้ง หรือติดต่ออาศรมศรีมงคล ๐๘๖-๓๖๙-๒๕๔๖</span>");
     }
   } catch (e) {
-    loading.style.display = "none";
-    res.className = "result bad"; res.style.display = "block";
-    res.innerHTML = "⚠️ ระบบขัดข้องชั่วคราว โปรดลองอีกครั้ง";
+    setBusy(false);
+    show("bad", "⚠️ ระบบขัดข้องชั่วคราว โปรดลองอีกครั้ง<br><span style='font-size:13px'>" + esc(String(e.message || e)) + "</span>");
   }
 }
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+// สแกน QR → เปิดหน้านี้พร้อม ?no= → ตรวจให้อัตโนมัติทันที
+(function init() {
+  const no = new URLSearchParams(location.search).get("no");
+  if (no) {
+    $("no").value = no.replace(/\D/g, "").slice(0, 8);
+    check();
+  }
+})();
 </script>
 </body>
 </html>
