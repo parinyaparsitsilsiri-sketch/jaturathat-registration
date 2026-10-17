@@ -1,5 +1,5 @@
 // app.js — ระบบลงทะเบียนจตุรธาตุ อาศรมศรีมงคล
-const API = "https://tobago-pipeline-accordingly-parker.trycloudflare.com";// relative — port 4575 // relative — เรียก server เดียวกัน
+const API = "https://assigned-explanation-includes-hometown.trycloudflare.com";// relative — port 4575 // relative — เรียก server เดียวกัน
 
 function toggleOccOther() {
   const val = document.getElementById("occupation").value;

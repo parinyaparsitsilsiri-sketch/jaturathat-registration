@@ -1,5 +1,5 @@
 // admin.js — หลังบ้าน: Dashboard + รายชื่อ + Export Excel
-const API = "https://tobago-pipeline-accordingly-parker.trycloudflare.com";
+const API = "https://assigned-explanation-includes-hometown.trycloudflare.com";
 
 function showMsg(text, type) {
   const msg = document.getElementById("listMsg");
