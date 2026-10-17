@@ -1,5 +1,5 @@
 // admin.js — หลังบ้าน: Dashboard + รายชื่อ + Export Excel
-const API = "https://api.trycloudflare.com";
+const API = "https://recorders-cal-beginner-rarely.trycloudflare.com";
 
 function showMsg(text, type) {
   const msg = document.getElementById("listMsg");
