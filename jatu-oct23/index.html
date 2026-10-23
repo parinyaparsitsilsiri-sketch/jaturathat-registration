@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>ลงทะเบียนผู้เข้าอบรม จตุรธาตุ ๒๓–๒๔ ตุลาคม ๒๕๖๙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2E7D32;--green-d:#1B5E20;--green-l:#E8F5E9;--line:#C8E6C9;--text:#1B2B1B;--muted:#5B6B5B}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:Sarabun,'TH Sarabun New',system-ui,sans-serif;background:#F4F8F4;color:var(--text);font-size:17px;line-height:1.6}
+.wrap{max-width:720px;margin:0 auto;padding:16px 14px 40px}
+header{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;padding:22px 16px;border-radius:0 0 20px 20px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+header h1{margin:0;font-size:21px;font-weight:700}
+header p{margin:6px 0 0;font-size:14px;opacity:.92}
+.card{background:#fff;border-radius:16px;padding:18px 16px;margin-top:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+.req{color:#C62828}
+input[type=text],input[type=email],input[type=number],input[type=tel],select{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:12px;font-size:17px;font-family:inherit;background:#fff;color:var(--text);min-height:52px}
+input:focus,select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px rgba(46,125,50,.12)}
+.row{display:flex;gap:12px}.row>*{flex:1}
+/* ══ PDPA — แตะได้ทั้งกล่อง ══ */
+.pdpa{background:var(--green-l);border:2px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;user-select:none}
+.pdpa:active{background:#DCEFDD}
+.pdpa input{width:34px;height:34px;min-width:34px;margin:2px 0 0;accent-color:var(--green);cursor:pointer}
+.pdpa-txt{font-size:15px;line-height:1.55}
+.pdpa-txt b{color:var(--green-d)}
+.btn-read{margin-top:12px;width:100%;padding:12px;border:2px dashed var(--green);background:#fff;color:var(--green-d);border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;min-height:48px}
+.btn-send{margin-top:18px;width:100%;padding:16px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;font-size:19px;font-weight:700;font-family:inherit;cursor:pointer;min-height:58px;box-shadow:0 4px 14px rgba(46,125,50,.3)}
+.btn-send:disabled{opacity:.6;cursor:not-allowed}
+.msg{margin-top:14px;padding:14px;border-radius:12px;font-size:16px;font-weight:600;display:none}
+.msg.ok{display:block;background:#E8F5E9;color:#1B5E20;border:2px solid #A5D6A7}
+.msg.err{display:block;background:#FFEBEE;color:#B71C1C;border:2px solid #EF9A9A}
+.hide{display:none!important}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:99}
+.modal.on{display:flex}
+.modal-in{background:#fff;border-radius:16px;max-width:640px;width:100%;max-height:88vh;display:flex;flex-direction:column}
+.modal-hd{padding:16px;border-bottom:2px solid var(--line);font-weight:700;font-size:17px;color:var(--green-d)}
+.modal-bd{padding:16px;overflow:auto;font-size:15px;line-height:1.7}
+.modal-ft{padding:14px 16px;border-top:2px solid var(--line);display:flex;gap:10px}
+.modal-ft button{flex:1;padding:13px;border-radius:12px;border:none;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;min-height:50px}
+.b-agree{background:var(--green);color:#fff}.b-close{background:#ECEFF1;color:#37474F}
+@media(max-width:420px){body{font-size:16px}.row{flex-direction:column;gap:0}}
+</style>
+</head>
+<body>
+<header>
+  <h1>ลงทะเบียนผู้เข้าอบรม</h1>
+  <p>หลักสูตรจตุรธาตุ · ๒๓–๒๔ ตุลาคม ๒๕๖๙ · อาศรมศรีมงคล</p>
+</header>
+<div class="wrap">
+<form id="regForm" novalidate>
+  <div class="card">
+    <div class="fg">
+      <label>คำนำหน้า <span class="req">*</span></label>
+      <select id="title" required><option value="">— เลือก —</option><option>นาย</option><option>นาง</option><option>นางสาว</option><option>อื่นๆ</option></select>
+    </div>
+    <div class="row">
+      <div class="fg"><label>ชื่อ <span class="req">*</span></label><input type="text" id="firstName" placeholder="ชื่อ" required></div>
+      <div class="fg"><label>นามสกุล <span class="req">*</span></label><input type="text" id="lastName" placeholder="นามสกุล" required></div>
+    </div>
+    <div class="row">
+      <div class="fg"><label>เพศ <span class="req">*</span></label><select id="gender" required><option value="">— เลือก —</option><option>ชาย</option><option>หญิง</option><option>ไม่ระบุ</option></select></div>
+      <div class="fg"><label>อายุ <span class="req">*</span></label><input type="number" id="age" min="15" max="100" placeholder="เช่น 47" required></div>
+    </div>
+    <div class="fg"><label>อีเมล <span class="req">*</span></label><input type="email" id="email" placeholder="example@gmail.com" required></div>
+    <div class="fg"><label>เบอร์โทรศัพท์</label><input type="tel" id="phone" placeholder="08X-XXX-XXXX"></div>
+    <div class="fg"><label>LINE ID</label><input type="text" id="lineId" placeholder="เช่น somchai99"></div>
+    <div class="fg">
+      <label>อาชีพ <span class="req">*</span></label>
+      <select id="occupation" required><option value="">— เลือก —</option><option>แพทย์แผนไทย</option><option>แพทย์แผนไทยประยุกต์</option><option>หมอพื้นบ้าน</option><option>พยาบาล</option><option>อื่นๆ</option></select>
+      <input type="text" id="occOther" class="hide" placeholder="ระบุอาชีพ" style="margin-top:10px">
+    </div>
+    <div class="fg" style="margin-bottom:0">
+      <label>ที่อยู่ / จังหวัด</label>
+      <input type="text" id="address" placeholder="เช่น ปากเกร็ด นนทบุรี">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="pdpa" id="pdpaBox">
+      <input type="checkbox" id="pdpaConsent">
+      <div class="pdpa-txt">
+        <b>ข้าพเจ้ายินยอมให้อาศรมศรีมงคล</b> เก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลของข้าพเจ้า
+        (ชื่อ-นามสกุล ที่อยู่ติดต่อ อีเมล เบอร์โทรศัพท์ LINE ID เพศ อายุ อาชีพ สถานภาพสมาชิก
+        รวมถึงภาพถ่าย/บันทึกวิดีโอในระหว่างการอบรม)
+        เพื่อการลงทะเบียน ออกประกาศนียบัตร ติดต่อประสานงาน และประชาสัมพันธ์กิจกรรม
+        ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ. ๒๕๖๒ (PDPA)
+        <div style="margin-top:8px;font-size:13.5px;color:#5B6B5B">* แตะที่กล่องนี้เพื่อยอมรับ — ท่านสามารถอ่านฉบับเต็มได้จากปุ่มด้านล่าง</div>
+      </div>
+    </div>
+    <button type="button" class="btn-read" id="btnRead">📄 อ่านคำยินยอมฉบับเต็ม</button>
+    <div class="msg" id="statusMsg"></div>
+    <button type="submit" class="btn-send" id="btnSend">📤 ส่งข้อมูลลงทะเบียน</button>
+  </div>
+</form>
+</div>
+
+<div class="modal" id="pdpaModal">
+  <div class="modal-in">
+    <div class="modal-hd">📄 คำยินยอมการเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคล</div>
+    <div class="modal-bd" id="pdpaBody"></div>
+    <div class="modal-ft">
+      <button type="button" class="b-agree" id="btnAgree">✅ ยินยอม</button>
+      <button type="button" class="b-close" id="btnClose">ปิด</button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
