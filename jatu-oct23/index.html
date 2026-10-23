@@ -66,7 +66,27 @@ input:focus,select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0
   <div class="card">
     <div class="fg">
       <label>คำนำหน้า <span class="req">*</span></label>
-      <select id="title" required><option value="">— เลือก —</option><option>นาย</option><option>นาง</option><option>นางสาว</option><option>อื่นๆ</option></select>
+      <select id="title" required>
+        <option value="">— เลือก —</option>
+        <optgroup label="บุคคลทั่วไป">
+          <option>นาย</option><option>นาง</option><option>นางสาว</option>
+        </optgroup>
+        <optgroup label="พระภิกษุ / นักบวช">
+          <option>พระภิกษุ</option><option>สามเณร</option><option>แม่ชี</option><option>พระอาจารย์</option>
+        </optgroup>
+        <optgroup label="วิชาการ / ยศ">
+          <option>ดร.</option><option>ผศ.ดร.</option><option>รศ.ดร.</option><option>ศ.ดร.</option>
+          <option>นพ.</option><option>ทพ.</option><option>ทพญ.</option><option>ภก.</option><option>ภญ.</option>
+          <option>พย.บ.</option><option>พท.ป.</option>
+        </optgroup>
+        <optgroup label="ทหาร / ตำรวจ">
+          <option>พล.ต.</option><option>พ.อ.</option><option>พ.ต.</option><option>ร.อ.</option>
+          <option>พล.ต.ต.</option><option>พ.ต.อ.</option><option>พ.ต.ท.</option><option>ร.ต.อ.</option>
+        </optgroup>
+        <optgroup label="อื่นๆ">
+          <option>อื่นๆ</option>
+        </optgroup>
+      </select>
     </div>
     <div class="row">
       <div class="fg"><label>ชื่อ <span class="req">*</span></label><input type="text" id="firstName" placeholder="ชื่อ" required></div>
