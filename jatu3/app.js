@@ -47,11 +47,9 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     return;
   }
 
-  if (!pdpaRead) {
-    showMsg("⚠️ กรุณาคลิกอ่านคำยินยอม PDPA ฉบับเต็มก่อนส่งข้อมูล (คลิกปุ่ม \"📄 คลิกอ่านคำยินยอมฉบับเต็ม\")", "error");
-    openPDPA(); // เปิด modal ให้อ่านทันที
-    return;
-  }
+  // ผู้ใช้สั่ง: ติ๊กยอมรับแล้วส่งได้เลย — ไม่บังคับเปิดอ่าน modal ก่อน
+  // (ปุ่มอ่านฉบับเต็มยังอยู่ ถ้าต้องการอ่าน)
+  if (!pdpaRead) pdpaRead = true;   // ถือว่ายอมรับเมื่อติ๊กถูก
 
   const occ = document.getElementById("occupation").value;
   const occupation = occ === "อื่นๆ"
