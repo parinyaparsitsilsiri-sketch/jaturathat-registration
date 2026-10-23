@@ -102,14 +102,54 @@ input:focus,select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0
     <div class="fg"><label>LINE ID</label><input type="text" id="lineId" placeholder="เช่น somchai99"></div>
     <div class="fg">
       <label>อาชีพ <span class="req">*</span></label>
-      <select id="occupation" required><option value="">— เลือก —</option><option>แพทย์แผนไทย</option><option>แพทย์แผนไทยประยุกต์</option><option>หมอพื้นบ้าน</option><option>พยาบาล</option><option>อื่นๆ</option></select>
+      <select id="occupation" required>
+        <option value="">— เลือก —</option>
+        <optgroup label="สายการแพทย์แผนไทย">
+          <option>แพทย์แผนไทย</option>
+          <option>แพทย์แผนไทยประยุกต์</option>
+          <option>หมอพื้นบ้าน</option>
+          <option>เภสัชกร</option>
+          <option>พยาบาล</option>
+          <option>นักกายภาพบำบัด</option>
+          <option>สาธารณสุขชุมชน</option>
+          <option>เจ้าหน้าที่สาธารณสุข</option>
+        </optgroup>
+        <optgroup label="ราชการ / รัฐวิสาหกิจ">
+          <option>ข้าราชการ</option>
+          <option>ข้าราชการบำนาญ</option>
+          <option>พนักงานรัฐวิสาหกิจ</option>
+          <option>ลูกจ้างประจำ</option>
+        </optgroup>
+        <optgroup label="เอกชน / ธุรกิจ">
+          <option>พนักงานบริษัท</option>
+          <option>ธุรกิจส่วนตัว / เจ้าของกิจการ</option>
+          <option>ค้าขาย</option>
+          <option>พนักงานขาย / บริการ</option>
+          <option>ช่างฝีมือ</option>
+        </optgroup>
+        <optgroup label="เกษตร / แรงงาน">
+          <option>เกษตรกร</option>
+          <option>รับจ้างทั่วไป</option>
+          <option>ประมง / ปศุสัตว์</option>
+        </optgroup>
+        <optgroup label="การศึกษา / อิสระ">
+          <option>ครู / อาจารย์</option>
+          <option>นักเรียน / นักศึกษา</option>
+          <option>นักวิจัย / วิชาการ</option>
+          <option>สื่อสารมวลชน / ศิลปิน</option>
+          <option>ฟรีแลนซ์</option>
+        </optgroup>
+        <optgroup label="อื่นๆ">
+          <option>แม่บ้าน / พ่อบ้าน</option>
+          <option>เกษียณอายุ</option>
+          <option>ว่างงาน</option>
+          <option>พระสงฆ์ / นักบวช</option>
+          <option>อื่นๆ</option>
+        </optgroup>
+      </select>
       <input type="text" id="occOther" class="hide" placeholder="ระบุอาชีพ" style="margin-top:10px">
     </div>
-    <div class="fg" style="margin-bottom:0">
-      <label>ที่อยู่ / จังหวัด</label>
-      <input type="text" id="address" placeholder="เช่น ปากเกร็ด นนทบุรี">
-    </div>
-  </div>
+</div>
 
   <div class="card">
     <div class="pdpa" id="pdpaBox">
