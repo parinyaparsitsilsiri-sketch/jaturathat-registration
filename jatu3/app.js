@@ -41,6 +41,25 @@ function agreePDPA() {
 document.getElementById("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  // ── ตรวจฟิลด์จำเป็น (แทน HTML5 validation ที่บล็อกเงียบ) ──
+  const need = [
+    ['title','คำนำหน้า'], ['firstName','ชื่อ'], ['lastName','นามสกุล'],
+    ['email','อีเมล'], ['gender','เพศ'], ['age','อายุ'], ['occupation','อาชีพ'],
+  ];
+  for (const [id, label] of need) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (!String(el.value || '').trim()) {
+      showMsg('⚠️ กรุณากรอก "' + label + '"', 'error');
+      el.focus();
+      if (el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+  }
+  const _em = document.getElementById('email');
+  if (_em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(_em.value.trim())) {
+    showMsg('⚠️ รูปแบบอีเมลไม่ถูกต้อง', 'error'); _em.focus(); return;
+  }
   const consent = document.getElementById("padaConsent");
   if (!consent.checked) {
     showMsg("⚠️ กรุณากดยอมรับการถ่ายภาพ/บันทึกวิดีโอ (PDPA) ก่อนส่งข้อมูล", "error");
