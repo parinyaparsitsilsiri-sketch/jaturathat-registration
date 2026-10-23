@@ -90,7 +90,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 
     if (result.result === "success") {
       // ไปหน้าลงทะเบียนสำเร็จ
-      window.location.href = "/success.html";
+      window.location.href = "success.html";
     } else if (result.result === "duplicate") {
       showMsg("⚠️ " + result.message, "error");
     } else {
