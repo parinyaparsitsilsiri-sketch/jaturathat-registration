@@ -18,6 +18,18 @@
 /* ===== CI อาศรมศรีมงคล - การแพทย์แผนไทย ===== */
 :root{--ci-green:#075B36;--ci-leaf:#2F8F45;--ci-gold:#C9A227;
 --ci-red:#E5252A;--ci-blue:#1457C8;--ci-cream:#F3E8C8}
+
+  /* ══ PDPA: เป้าแตะใหญ่ ≥44px ══ */
+  .consent-box { cursor: pointer; -webkit-tap-highlight-color: rgba(46,125,50,.15); }
+  .consent-label { display: flex; align-items: flex-start; gap: 12px; padding: 6px 0; }
+  #padaConsent {
+    width: 28px !important; height: 28px !important;
+    min-width: 28px; margin-top: 2px; cursor: pointer;
+    accent-color: #2e7d32; flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    #padaConsent { width: 32px !important; height: 32px !important; min-width: 32px; }
+  }
 </style>
 </head>
 <body>

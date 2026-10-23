@@ -121,3 +121,23 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
   }
 });
 
+
+
+/* ===== PDPA_TAPFIX — แตะกล่องเขียวทั้งกล่องเพื่อติ๊กได้ + ขยายเป้าแตะ ===== */
+document.addEventListener('DOMContentLoaded', function () {
+  var box = document.querySelector('.consent-box');
+  var cb  = document.getElementById('padaConsent');
+  if (!box || !cb) return;
+  box.style.cursor = 'pointer';
+  box.addEventListener('click', function (ev) {
+    var t = ev.target;
+    if (t === cb) return;                       // คลิกที่ตัว checkbox เอง ปล่อยปกติ
+    if (t.closest && t.closest('.consent-read-btn')) return;  // ปุ่มอ่านฉบับเต็ม ไม่ติ๊ก
+    if (t.closest && t.closest('#pdpaModal')) return;
+    ev.preventDefault();
+    cb.checked = !cb.checked;
+    cb.dispatchEvent(new Event('change', { bubbles: true }));
+    var st = document.getElementById('statusMsg');
+    if (st) { st.textContent = cb.checked ? '✅ ยอมรับคำยินยอม PDPA แล้ว' : ''; }
+  });
+});
