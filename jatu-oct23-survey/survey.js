@@ -38,12 +38,6 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    var fullname = ($('fullname').value || '').trim();
-    if (!fullname) {
-      showMsg('⚠️ กรุณากรอกชื่อ-นามสกุล', 'err');
-      $('fullname').focus(); $('fullname').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
     var missing = [];
     QUESTIONS.forEach(function (q, i) {
       var el = form.querySelector('input[name="' + q.key + '"]:checked');
@@ -58,9 +52,9 @@
 
     var payload = {
       event: 'jatu-oct23',
-      title: $('title').value,
-      fullname: fullname,
-      occupation: $('occupation').value,
+      title: '',
+      fullname: '',
+      occupation: '',
       comment: $('comment').value.trim(),
       nextCourse: $('nextCourse').value.trim()
     };
