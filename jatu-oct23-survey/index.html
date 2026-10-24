@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>แบบสอบถามความพึงพอใจ · จตุรธาตุ ๒๓–๒๔ ตุลาคม ๒๕๖๙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2E7D32;--green-d:#1B5E20;--green-l:#E8F5E9;--line:#C8E6C9;--text:#1B2B1B;--muted:#5B6B5B;--gold:#C9A227}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:Sarabun,'TH Sarabun New',system-ui,sans-serif;background:#F4F8F4;color:var(--text);font-size:17px;line-height:1.6}
+.logo-pair{display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 16px 4px;background:#fff}
+.logo-pair img{height:78px;width:auto;object-fit:contain}
+.logo-pair .sep{width:2px;height:56px;background:#DCEFDD;border-radius:2px}
+header{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;padding:22px 16px;border-radius:0 0 20px 20px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+header h1{margin:0;font-size:21px;font-weight:700}
+header p{margin:6px 0 0;font-size:14px;opacity:.92}
+.wrap{max-width:720px;margin:0 auto;padding:16px 14px 40px}
+.card{background:#fff;border-radius:16px;padding:18px 16px;margin-top:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.card h2{margin:0 0 14px;font-size:17px;color:var(--green-d);font-weight:700;padding-bottom:8px;border-bottom:2px solid var(--green-l)}
+.fg{margin-bottom:16px}
+.fg>label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+input[type=text],input[type=number],select,textarea{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:12px;font-size:17px;font-family:inherit;background:#fff;color:var(--text);min-height:52px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px rgba(46,125,50,.12)}
+textarea{min-height:110px;resize:vertical}
+.q{padding:14px 0;border-bottom:1px dashed var(--line)}
+.q:last-child{border-bottom:none}
+.q .t{font-weight:600;font-size:15.5px;margin-bottom:10px;line-height:1.5}
+.stars{display:flex;gap:8px;flex-wrap:wrap}
+.stars label{flex:1;min-width:56px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border:2px solid var(--line);border-radius:12px;cursor:pointer;background:#fff;transition:.15s}
+.stars input{display:none}
+.stars .n{font-size:18px;font-weight:700;color:var(--muted)}
+.stars .lbl{font-size:11px;color:var(--muted);text-align:center;line-height:1.2}
+.stars input:checked+span{color:#fff}
+.stars label:has(input:checked){background:var(--green);border-color:var(--green);transform:scale(1.03)}
+.stars label:has(input:checked) .n,.stars label:has(input:checked) .lbl{color:#fff}
+.btn-send{margin-top:18px;width:100%;padding:16px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;font-size:19px;font-weight:700;font-family:inherit;cursor:pointer;min-height:58px;box-shadow:0 4px 14px rgba(46,125,50,.3)}
+.btn-send:disabled{opacity:.6}
+.msg{margin-top:14px;padding:14px;border-radius:12px;font-size:16px;font-weight:600;display:none}
+.msg.ok{display:block;background:#E8F5E9;color:#1B5E20;border:2px solid #A5D6A7}
+.msg.err{display:block;background:#FFEBEE;color:#B71C1C;border:2px solid #EF9A9A}
+.done{text-align:center;padding:40px 20px}
+.done .ic{width:84px;height:84px;border-radius:50%;background:#E8F5E9;color:#2E7D32;font-size:44px;line-height:84px;margin:0 auto 18px}
+.done h2{color:#1B5E20;font-size:22px;margin:0 0 10px}
+.hide{display:none!important}
+@media(max-width:420px){body{font-size:16px}.logo-pair img{height:62px}.stars label{min-width:48px}}
+</style>
+</head>
+<body>
+<div class="logo-pair">
+  <img src="logo_left.png" alt="อาศรมศรีมงคล">
+  <div class="sep"></div>
+  <img src="logo_rajabhat.jpg" alt="มหาวิทยาลัยราชภัฏ">
+</div>
+<header>
+  <h1>แบบสอบถามความพึงพอใจ</h1>
+  <p>หลักสูตรจตุรธาตุ · ๒๓–๒๔ ตุลาคม ๒๕๖๙ · อาศรมศรีมงคล</p>
+</header>
+
+<div class="wrap">
+<div id="formArea">
+<form id="surveyForm" novalidate>
+
+  <div class="card">
+    <h2>ส่วนที่ ๑ · ข้อมูลผู้ตอบ</h2>
+    <div class="fg">
+      <label>คำนำหน้า</label>
+      <select id="title"><option value="">— เลือก —</option><option>นาย</option><option>นาง</option><option>นางสาว</option><option>ทพ.</option><option>พท.</option><option>นพ.</option><option>อื่นๆ</option></select>
+    </div>
+    <div class="fg">
+      <label>ชื่อ-นามสกุล <span style="color:#C62828">*</span></label>
+      <input type="text" id="fullname" placeholder="ชื่อ นามสกุล" required>
+    </div>
+    <div class="fg">
+      <label>อาชีพ</label>
+      <select id="occupation">
+        <option value="">— เลือก —</option>
+        <option>แพทย์แผนไทย</option><option>แพทย์แผนไทยประยุกต์</option><option>หมอพื้นบ้าน</option>
+        <option>เภสัชกร</option><option>พยาบาล</option><option>ข้าราชการ</option>
+        <option>พนักงานรัฐวิสาหกิจ</option><option>พนักงานบริษัท</option><option>ธุรกิจส่วนตัว</option>
+        <option>เกษตรกร</option><option>นักเรียน / นักศึกษา</option><option>อื่นๆ</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>ส่วนที่ ๒ · ความพึงพอใจต่อการอบรม</h2>
+    <div id="qArea"></div>
+  </div>
+
+  <div class="card">
+    <h2>ส่วนที่ ๓ · ข้อเสนอแนะ</h2>
+    <div class="fg">
+      <label>สิ่งที่ประทับใจ / ข้อเสนอแนะเพิ่มเติม</label>
+      <textarea id="comment" placeholder="พิมพ์ข้อเสนอแนะของท่าน..."></textarea>
+    </div>
+    <div class="fg" style="margin-bottom:0">
+      <label>ต้องการให้จัดอบรมหลักสูตรใดอีก</label>
+      <input type="text" id="nextCourse" placeholder="เช่น สมุนไพรพื้นบ้าน, นวดไทย...">
+    </div>
+  </div>
+
+  <div class="msg" id="statusMsg"></div>
+  <button type="submit" class="btn-send" id="btnSend">📤 ส่งแบบสอบถาม</button>
+</form>
+</div>
+
+<div id="doneArea" class="done hide">
+  <div class="ic">✓</div>
+  <h2>ขอบคุณสำหรับความคิดเห็น</h2>
+  <p>อาศรมศรีมงคลจะนำข้อเสนอแนะของท่านไปพัฒนาการจัดอบรมครั้งต่อไป</p>
+</div>
+</div>
+
+<script src="config.js"></script>
+<script src="survey.js"></script>
+</body>
+</html>
