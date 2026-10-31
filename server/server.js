@@ -86,8 +86,8 @@ app.post('/api/register', (req, res) => {
     if (dup) return res.json({ result: 'error', message: 'อีเมลนี้ลงทะเบียนแล้ว (รหัส ' + dup.id + ')', duplicate: true, id: dup.id });
 
     const info = db.prepare(`INSERT INTO registrations
-      (event,title,firstName,lastName,gender,age,email,phone,lineId,occupation,address,pdpaConsent)
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+      (event,title,firstName,lastName,gender,age,email,phone,lineId,occupation,address,pdpaConsent,createdAt)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,datetime('now','+7 hours'))`).run(
       event, String(b.title || ''), first, last, String(b.gender || ''),
       parseInt(b.age, 10) || null, email, String(b.phone || ''), String(b.lineId || ''),
       String(b.occupation || ''), String(b.address || ''), 'ยินยอม'
@@ -150,8 +150,8 @@ app.post('/api/survey', (req, res) => {
       if (!(v >= 1 && v <= 5)) return res.json({ result: 'error', message: 'กรุณาตอบแบบประเมินให้ครบทุกข้อ' });
     }
     const info = db.prepare(`INSERT INTO surveys
-      (event,title,fullname,occupation,content,speaker,material,venue,duration,benefit,organize,overall,comment,nextCourse)
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+      (event,title,fullname,occupation,content,speaker,material,venue,duration,benefit,organize,overall,comment,nextCourse,createdAt)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,datetime('now','+7 hours'))`).run(
       String(b.event || 'jatu-oct23'), String(b.title || ''), name, String(b.occupation || ''),
       parseInt(b.content,10), parseInt(b.speaker,10), parseInt(b.material,10), parseInt(b.venue,10),
       parseInt(b.duration,10), parseInt(b.benefit,10), parseInt(b.organize,10), parseInt(b.overall,10),
