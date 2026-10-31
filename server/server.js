@@ -37,10 +37,24 @@ CREATE TABLE IF NOT EXISTS registrations (
   event TEXT, title TEXT, firstName TEXT, lastName TEXT,
   gender TEXT, age INTEGER, email TEXT, phone TEXT, lineId TEXT,
   occupation TEXT, address TEXT, pdpaConsent TEXT,
-  createdAt TEXT DEFAULT (datetime('now','localtime'))
+  createdAt TEXT DEFAULT (datetime('now','+7 hours'))
 );
 CREATE UNIQUE INDEX IF NOT EXISTS ux_email_event ON registrations(email, event);
 `);
+
+// ══════ One-time migration: แก้เวลา UTC → ไทย (+7) ══════
+db.exec("CREATE TABLE IF NOT EXISTS meta (k TEXT PRIMARY KEY, v TEXT)");
+(function () {
+  const done = db.prepare("SELECT v FROM meta WHERE k = 'tz_fix_1031'").get();
+  if (done) return;
+  const r = db.prepare(
+    "UPDATE registrations SET createdAt = datetime(createdAt, '+7 hours') " +
+    "WHERE event = 'yamkang-oct31' AND createdAt < '2026-10-31 07:00'"
+  ).run();
+  db.prepare("INSERT OR REPLACE INTO meta (k, v) VALUES ('tz_fix_1031', ?)").run(String(r.changes));
+  console.log('[migrate] tz_fix_1031: แก้เวลา ' + r.changes + ' แถว');
+})();
+
 
 // ══════ ตารางแบบสอบถาม ══════
 db.exec(`
@@ -50,7 +64,7 @@ CREATE TABLE IF NOT EXISTS surveys (
   content INTEGER, speaker INTEGER, material INTEGER, venue INTEGER,
   duration INTEGER, benefit INTEGER, organize INTEGER, overall INTEGER,
   comment TEXT, nextCourse TEXT,
-  createdAt TEXT DEFAULT (datetime('now','localtime'))
+  createdAt TEXT DEFAULT (datetime('now','+7 hours'))
 );
 `);
 
