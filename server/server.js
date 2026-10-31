@@ -17,6 +17,23 @@ const FRONT_DIR = '/home/sirasit/jaturathat-registration/jatu-oct23';
 fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
 fs.mkdirSync(EXCEL_DIR, { recursive: true });
 
+// ══════ One-time restore: กู้คืน #24 ที่ถูก cleanup ลบผิด ══════
+(function () {
+  const done = db.prepare("SELECT v FROM meta WHERE k = 'restore_24'").get();
+  if (done) return;
+  const has = db.prepare("SELECT id FROM registrations WHERE firstName = ? AND lastName = ?")
+                 .get('ณภรรศนันท์', 'รองเย็น');
+  if (!has) {
+    db.prepare(`INSERT INTO registrations
+      (event,title,firstName,lastName,gender,age,email,phone,lineId,occupation,address,pdpaConsent,createdAt,cert_no)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+      'jatu-oct23','นางสาว','ณภรรศนันท์','รองเย็น','หญิง',57,'test@test.com','0834424294','0834424294',
+      'แพทย์แผนไทย','','ยินยอม','2026-10-23 12:08:34','69090099');
+    console.log('[restore] กู้คืน ณภรรศนันท์ รองเย็น');
+  }
+  db.prepare("INSERT OR REPLACE INTO meta (k, v) VALUES ('restore_24', '1')").run();
+})();
+
 // ══════ CORS ══════
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
