@@ -17,6 +17,18 @@ const FRONT_DIR = '/home/sirasit/jaturathat-registration/jatu-oct23';
 fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
 fs.mkdirSync(EXCEL_DIR, { recursive: true });
 
+// ══════ One-time cleanup: ลบข้อมูลทดสอบ ══════
+(function () {
+  const done = db.prepare("SELECT v FROM meta WHERE k = 'cleanup_test_1'").get();
+  if (done) return;
+  const r = db.prepare(
+    "DELETE FROM registrations WHERE email LIKE '%test.invalid' OR email LIKE '%test.com' " +
+    "OR firstName LIKE '%ทดสอบ%'"
+  ).run();
+  db.prepare("INSERT OR REPLACE INTO meta (k, v) VALUES ('cleanup_test_1', ?)").run(String(r.changes));
+  console.log('[cleanup] ลบข้อมูลทดสอบ ' + r.changes + ' แถว');
+})();
+
 // ══════ CORS ══════
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
