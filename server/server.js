@@ -17,17 +17,6 @@ const FRONT_DIR = '/home/sirasit/jaturathat-registration/jatu-oct23';
 fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
 fs.mkdirSync(EXCEL_DIR, { recursive: true });
 
-// ══════ One-time fix 2026-11-01: ลบข้อมูลทดสอบ + แก้ชื่อ ══════
-(function () {
-  const done = db.prepare("SELECT v FROM meta WHERE k = 'fix_1101'").get();
-  if (done) return;
-  const d = db.prepare("DELETE FROM registrations WHERE firstName LIKE '%ทดสอบ%' OR firstName LIKE '%ลบทิ้ง%'").run();
-  const u1 = db.prepare("UPDATE registrations SET firstName = TRIM(REPLACE(firstName,'นาย','')) WHERE firstName LIKE 'นาย%' AND LENGTH(firstName) > LENGTH(REPLACE(firstName,'นาย',''))").run();
-  const u2 = db.prepare("UPDATE registrations SET title = 'พท.ว.ภ.' WHERE firstName = 'ขนิษฐา' AND lastName = 'ผลาคุณ'").run();
-  db.prepare("INSERT OR REPLACE INTO meta (k, v) VALUES ('fix_1101', '1')").run();
-  console.log('[fix_1101] del=' + d.changes + ' rename=' + u1.changes + ' title=' + u2.changes);
-})();
-
 // ══════ CORS ══════
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
